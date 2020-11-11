@@ -1,10 +1,10 @@
 import flask as f
 import os
 
-from .extensions import db, login_manager
-from .commands import register
-from .routes import main
-from .models import Users
+from extensions import db, login_manager
+from commands import register
+from routes import main
+from models import Users
 
 def create_app():
     app = f.Flask(__name__)

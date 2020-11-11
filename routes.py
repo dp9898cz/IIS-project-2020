@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 
-from .extensions import db
-from .models import Users, Hotel
+from extensions import db
+from models import Users, Hotel
 
 main = Blueprint('main', __name__)
 
