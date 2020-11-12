@@ -17,7 +17,7 @@ def create_app():
 
     register(app)
 
-    #login_manager.login_view = ''
+    login_manager.login_view = 'main.login'
     @login_manager.user_loader
     def loadUser(userID):
         return Users.query.get(userID)

@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/main.js') }}"> </script>
     {% block head %} {% endblock %}
 </head>
 <body>
+    <!-- tady asi bude nejaka lista -->
+    <!-- a taky asi login button -->
     {% block body %} {% endblock %}
 </body>
 </html>

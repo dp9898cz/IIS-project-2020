@@ -1,4 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from werkzeug.security import check_password_hash
+from flask_login import login_user
 
 from extensions import db
 from models import Users, Hotel
@@ -30,4 +32,14 @@ def register():
 
 @main.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        name = request.form['name']
+        passwrd = request.form['password']
+        user = Users.query.filter_by(name=name).first()
+        if not user or not check_password_hash(user.password, passwrd):
+            pass
+            #todo error
+        else:
+            login_user(user)
+            return redirect(url_for('main.index'))
     return render_template('login.html')
