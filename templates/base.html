@@ -18,6 +18,7 @@
             <h1>Login</h1>
             <hr>
             <form method="POST" action="{{ url_for('main.login') }}">
+                {{ registerForm.hidden_tag() }}
                 <label>Name</label>
                 <input type="text" placeholder="Name" name="name">
                 <label>Password</label>
@@ -29,11 +30,35 @@
             <h1>Register</h1>
             <hr>
             <form method="POST" action="{{ url_for('main.register') }}">
-                <label>Name</label>
-                <input type="text" placeholder="Name" name="name"> <br>
-                <label>Password</label>
-                <input type="text", placeholder="Password", name="password">
-                <button type="submit">Registrovat</button> <br>
+                {{ registerForm.hidden_tag() }}
+                <div class="form-field">{{ registerForm.name.label }} {{ registerForm.name }}
+                    {% if registerForm.name.errors %}
+                    <ul class="errors">
+                        {% for error in registerForm.name.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-field">{{ registerForm.email.label }} {{ registerForm.email }}
+                    {% if registerForm.email.errors %}
+                        <ul class="errors">
+                            {% for error in registerForm.email.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <div class="form-field">{{ registerForm.body.label }} {{ registerForm.body }}
+                    {% if registerForm.body.errors %}
+                    <ul class="errors">
+                        {% for error in registerForm.body.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {{ registerForm.submit }}
             </form>
         </div>
         <button onclick="toggleLoginRegisterOption()" id="login-register-toggle">Registrace</button>

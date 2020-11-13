@@ -2,13 +2,24 @@
 
 {% block head %}
     <title>Homepage</title>
+    <script>
+        window.addEventListener("load", function(){
+            if ({{ openWindow }}) {
+                openLoginForm();
+                toggleLoginRegisterOption();
+            }
+        });
+    </script>
 {% endblock %}
 
 {% block body %}
-
+    {% if registerForm.errors %}
+{{ registerForm.errors }}
+{% endif %}
     <h1>Homepage</h1>
     {% if current_user.is_authenticated %}
         <form method="POST" action="{{ url_for('main.logout') }}">
+            {{ registerForm.hidden_tag() }}
             <input type="submit" value="Logout">
         </form>
     {% else %}

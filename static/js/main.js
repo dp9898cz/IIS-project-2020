@@ -1,3 +1,4 @@
+
 function openLoginForm() {
     document.getElementById("login").style.display = "block";
 }

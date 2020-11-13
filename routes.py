@@ -4,39 +4,47 @@ from flask_login import login_user, logout_user, login_required
 
 from extensions import db
 from models import Users, Hotel
+from forms import RegisterForm
 
 main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    form = RegisterForm()
+    return render_template('index.html', registerForm=form, openWindow=0)
 
 @main.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':
-        name = request.form['name']
-        unhashed_pass = request.form['password']
-        
-        user = Users(
-            name = name, 
-            unhashed_password = unhashed_pass, 
-            isAdmin = True
-        )
+    form = RegisterForm()
+    print(form.email)
+    if form.validate_on_submit():
+        print("success")
+        return render_template('index.html', registerForm=form, openWindow=0)
+    else:
+        print("failed")
+        return render_template('index.html', registerForm=form, openWindow=1)
 
-        db.session.add(user)
-        try:
-            db.session.commit()
-        except:
-            print("user already exists")
-            #todo error handle
-            return redirect(url_for('main.index'))
+    name = request.form['name']
+    unhashed_pass = request.form['password']
+    
+    user = Users(
+        name = name, 
+        unhashed_password = unhashed_pass, 
+        isAdmin = True
+    )
 
-        #login the user
-        login_user(user)
+    db.session.add(user)
+    try:
+        db.session.commit()
+    except:
+        print("user already exists")
+        #todo error handle
+        return redirect(url_for('main.index'))
 
-        return redirect(url_for('main.index')) #todo? maybe redirect to the profile?
+    #login the user
+    login_user(user)
 
-    return render_template('register.html')
+    return redirect(url_for('main.index')) #todo? maybe redirect to the profile?
 
 @main.route('/login', methods=['POST'])
 def login():
