@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="cs">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,39 @@
     <script src="{{ url_for('static', filename='js/main.js') }}"> </script>
     {% block head %} {% endblock %}
 </head>
+
 <body>
     <!-- tady asi bude nejaka lista -->
-    <!-- a taky asi login button -->
+
+    <!-- a taky asi login div -->
+    <div id="login">
+        <div id="login-option">
+            <h1>Login</h1>
+            <hr>
+            <form method="POST" action="{{ url_for('main.login') }}">
+                <label>Name</label>
+                <input type="text" placeholder="Name" name="name">
+                <label>Password</label>
+                <input type="text" , placeholder="Password" , name="password">
+                <button type="submit">Přihlásit se</button>
+            </form>
+        </div>
+        <div id="register-option">
+            <h1>Register</h1>
+            <hr>
+            <form method="POST" action="{{ url_for('main.register') }}">
+                <label>Name</label>
+                <input type="text" placeholder="Name" name="name"> <br>
+                <label>Password</label>
+                <input type="text", placeholder="Password", name="password">
+                <button type="submit">Registrovat</button> <br>
+            </form>
+        </div>
+        <button onclick="toggleLoginRegisterOption()" id="login-register-toggle">Registrace</button>
+        <hr>
+        <button onclick="closeLoginForm()">Exit</button>
+    </div>
     {% block body %} {% endblock %}
 </body>
+
 </html>

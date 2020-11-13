@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from werkzeug.security import check_password_hash
-from flask_login import login_user
+from flask_login import login_user, logout_user, login_required
 
 from extensions import db
 from models import Users, Hotel
@@ -24,22 +24,35 @@ def register():
         )
 
         db.session.add(user)
-        db.session.commit()
+        try:
+            db.session.commit()
+        except:
+            print("user already exists")
+            #todo error handle
+            return redirect(url_for('main.index'))
 
-        return redirect(url_for('main.login'))
+        #login the user
+        login_user(user)
+
+        return redirect(url_for('main.index')) #todo? maybe redirect to the profile?
 
     return render_template('register.html')
 
-@main.route('/login', methods=['GET', 'POST'])
+@main.route('/login', methods=['POST'])
 def login():
-    if request.method == 'POST':
-        name = request.form['name']
-        passwrd = request.form['password']
-        user = Users.query.filter_by(name=name).first()
-        if not user or not check_password_hash(user.password, passwrd):
-            pass
-            #todo error
-        else:
-            login_user(user)
-            return redirect(url_for('main.index'))
-    return render_template('login.html')
+    name = request.form['name']
+    passwrd = request.form['password']
+    user = Users.query.filter_by(name=name).first()
+    if not user or not check_password_hash(user.password, passwrd):
+        pass
+        #todo error
+    else:
+        login_user(user)
+        return redirect(url_for('main.index'))
+
+@main.route('/logout', methods=['POST'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('main.index'))
+

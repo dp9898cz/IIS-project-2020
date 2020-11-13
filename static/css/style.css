@@ -5,3 +5,18 @@ body {
 h1 {
     color: aquamarine;
 }
+
+#login {
+    display: none;
+    position: fixed;
+    margin: 5% auto;
+    left: 0;
+    right: 0;
+    height: 700px;
+    width: 600px;
+    background-color:white;
+}
+
+#register-option {
+    display: none;
+}
