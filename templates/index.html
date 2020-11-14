@@ -4,28 +4,23 @@
     <title>Homepage</title>
     <script>
         window.addEventListener("load", function(){
-            if ({{ openWindow }}) {
+            if ({{ openWindow or 0 }}) {
                 openLoginForm();
-                toggleLoginRegisterOption();
+                if ({{ registerForm.name.data or 0 }}) {
+                    // user wats to register again
+                    toggleLoginRegisterOption();
+                    // fix csrf 2 ids
+                }
             }
+        });
+        document.addEventListener("DOMContentLoaded", function(){
+            fixMultiFormsIDs();
         });
     </script>
 {% endblock %}
 
 {% block body %}
-    {% if registerForm.errors %}
-{{ registerForm.errors }}
-{% endif %}
     <h1>Homepage</h1>
-    {% if current_user.is_authenticated %}
-        <form method="POST" action="{{ url_for('main.logout') }}">
-            {{ registerForm.hidden_tag() }}
-            <input type="submit" value="Logout">
-        </form>
-    {% else %}
-        <button onclick="openLoginForm()">Login</button>
-    {% endif %}
-    <br />
 
     {% if current_user.is_authenticated %} 
         Hi {{ current_user.name }}! 

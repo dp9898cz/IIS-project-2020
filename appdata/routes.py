@@ -4,14 +4,20 @@ from flask_login import login_user, logout_user, login_required
 
 from appdata.extensions import db
 from appdata.models import Users, Hotel
-from appdata.forms import RegisterForm
+from appdata.forms import RegisterForm, LoginForm
 
 main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    form = RegisterForm()
-    return render_template('index.html', registerForm=form, openWindow=0)
+    r_form = RegisterForm()
+    l_form = LoginForm()
+    context = {
+        'registerForm': r_form,
+        'loginForm': l_form,
+        'openWindow': 0
+    }
+    return render_template('index.html', **context)
 
 @main.route('/register', methods=['GET', 'POST'])
 def register():
@@ -48,15 +54,29 @@ def register():
 
 @main.route('/login', methods=['POST'])
 def login():
-    name = request.form['name']
-    passwrd = request.form['password']
-    user = Users.query.filter_by(name=name).first()
-    if not user or not check_password_hash(user.password, passwrd):
-        pass
-        #todo error
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = Users.query.filter_by(name=form.login.data).first()
+        if not user or not check_password_hash(user.password, form.password.data):
+            #todo wrong password error
+            context = {
+                'registerForm': RegisterForm(),
+                'loginForm': form,
+                'openWindow': 1
+            }
+            return render_template('index.html', **context)
+        else:
+            #successfully logged in
+            login_user(user)
+            return redirect(url_for("main.index"))
     else:
-        login_user(user)
-        return redirect(url_for('main.index'))
+        context = {
+            'registerForm': RegisterForm(),
+            'loginForm': form,
+            'openWindow': 1
+        }
+        return render_template('index.html', **context)
+
 
 @main.route('/logout', methods=['POST'])
 @login_required
