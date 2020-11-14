@@ -1,7 +1,7 @@
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
-from flask_wtf.csrf import CsrfProtect
+from flask_wtf.csrf import CSRFProtect
 
-csrf = CsrfProtect()
+csrf = CSRFProtect()
 login_manager = LoginManager()
 db = SQLAlchemy()

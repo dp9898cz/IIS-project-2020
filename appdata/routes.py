@@ -2,9 +2,9 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, login_required
 
-from extensions import db
-from models import Users, Hotel
-from forms import RegisterForm
+from appdata.extensions import db
+from appdata.models import Users, Hotel
+from appdata.forms import RegisterForm
 
 main = Blueprint('main', __name__)
 

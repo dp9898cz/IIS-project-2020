@@ -1,14 +1,14 @@
 import flask as f
 import os
 
-from extensions import db, login_manager, csrf
-from commands import register
-from routes import main
-from models import Users
+from appdata.extensions import db, login_manager, csrf
+from appdata.commands import register
+from appdata.routes import main
+from appdata.models import Users
 
 def create_app():
     app = f.Flask(__name__)
-    app.config.from_pyfile("settings.py")
+    app.config.from_pyfile("appdata/settings.py")
     
     db.init_app(app)
     csrf.init_app(app)

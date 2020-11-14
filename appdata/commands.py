@@ -1,8 +1,8 @@
 import click
 from flask.cli import with_appcontext
 
-from extensions import db
-from models import Users, Hotel
+from appdata.extensions import db
+from appdata.models import Users, Hotel
 
 def register(app):
 
