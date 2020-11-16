@@ -12,3 +12,4 @@ def register_commands(app):
     @app.cli.command(name='fill_db', help='Fill up DB with sample data')
     def fill_db():
         pass
+    
