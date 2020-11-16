@@ -2,8 +2,57 @@
 
 {% block head %}
     <title>Homepage</title>
+    <script>
+        window.addEventListener("load", function(){
+            if ({{ openWindow or 0 }}) {
+                openLoginForm();
+                if ({{ registerForm.name.data or 0 }}) {
+                    // user wats to register again
+                    toggleLoginRegisterOption();
+                    // fix csrf 2 ids
+                }
+            }
+        });
+        document.addEventListener("DOMContentLoaded", function(){
+            fixMultiFormsIDs();
+        });
+    </script>
 {% endblock %}
 
 {% block body %}
+    <h1>Homepage</h1>
+
+    {% if current_user.is_authenticated %} 
+        Hi {{ current_user.name }}! 
+    {% endif %}
+
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
+    <h1>Homepage</h1>
     <h1>Homepage</h1>
 {% endblock %}
