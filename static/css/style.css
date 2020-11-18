@@ -1,3 +1,7 @@
+/*-------------------------------------------------------*/
+/*Main css file*/
+/*-------------------------------------------------------*/
+/*Main icon*/
 .main-icon{
     font-family:"Blanka-Regular", serif; 
     font-size: 48px;
@@ -31,6 +35,8 @@
     font-family: "Blanka-Regular";
     src: url("font/Blanka-Regular.otf") format("opentype");
 }
+/*----------------------------------------------------------------*/
+/*Menu bar*/
 .menu{
     margin: 10px;
 }
@@ -137,6 +143,8 @@
     display: none;
 }
 /*-------------------------------------------------------*/
+/* Menu mobile*/
+
 @media(max-width: 840px){
     .menu{
         background-color: #000;
@@ -249,8 +257,16 @@
             display: none;
         
     }
+    .main-title{
+        font-size: 18vw;
+        
+    }
+    
+    
 }
 /*-----------------------------------------------------------*/
+/* Main title*/
+
 .main-title{
     font-family:"Blanka-Regular", serif; 
     font-size: 150px;
@@ -259,19 +275,9 @@
     color: white;
     letter-spacing: 3px;
 }
-/*.level:before{
-    content: '';
-    width: 0px;
-    position: absolute;
-    border-bottom: 5px solid white;
-    bottom: 20px;
-    left: 5px;
-    transition: 0.7s all;
-}
-.level:hover::before{
-    width: 105px;
-}
-*/
+/* ----------------------------------------------------*/
+/* Body of site site(background) */
+
 body{
     background-image: url("img/pozadi.jpg");
     border: 0;
@@ -283,9 +289,8 @@ body{
 
 }
 
-h1 {
-    color: aquamarine;
-}
+/* ----------------------------------------------------*/
+/* Content of site site */
 
 .content{
     width: auto;
@@ -310,6 +315,8 @@ h1 {
     font-size: 25px;
     float: left;
 }
+/* ----------------------------------------------------*/
+/* Hotely main site */
 #hotely{
     width: 90%;
     margin: 5%;
@@ -341,8 +348,8 @@ h1 {
         float: left;
     }
 }
-
-
+/* ----------------------------------------------------*/
+/* Login windows */
 #login-window {
     display: none;
     position: fixed;
