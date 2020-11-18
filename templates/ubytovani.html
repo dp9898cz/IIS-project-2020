@@ -1,34 +1,14 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <title>Homepage</title>
-    <script>
-        window.addEventListener("load", function(){
-            if ({{ openWindow or 0 }}) {
-                openLoginForm();
-                if ({{ registerForm.name.data or 0 }}) {
-                    // user wats to register again
-                    toggleLoginRegisterOption();
-                    // fix csrf 2 ids
-                }
-            }
-        });
-        document.addEventListener("DOMContentLoaded", function(){
-            fixMultiFormsIDs();
-        });
-    </script>
+
 {% endblock %}
+
 
 {% block body %}
 <div class="content">
-    <h1>Naše hotely</h1>
-    <div id="hotely">
-        <div class="hotel"><p>Praha</p><a href=""><img src="static/css/img/hotel.png" ></a></div>
-        <div class="hotel"><p>Praha</p><a href=""><img src="static/css/img/hotel.png" ></a></div>
-        <div class="hotel"><p>Praha</p><a href=""><img src="static/css/img/hotel.png" ></a></div>
-        <div class="hotel"><p>Praha</p><a href=""><img src="static/css/img/hotel.png" ></a></div>
-        <div class="hotel"><p>Praha</p><a href=""><img src="static/css/img/hotel.png" ></a></div>
-    </div>
+    <h1>Ubytování</h1>
+    
     <p id="textArea" class="block">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc volutpat libero laoreet, faucibus lectus sed,
         aliquam eros. Vivamus pretium, nibh ac fermentum hendrerit, turpis sem efficitur velit, at bibendum metus 
@@ -84,8 +64,4 @@
             
     </p> 
 </div>
-    {% if current_user.is_authenticated %} 
-        Hi {{ current_user.name }}! 
-    {% endif %}
-
 {% endblock %}
