@@ -11,7 +11,49 @@
 
 <body>
     <!-- tady asi bude nejaka lista (navbar) -->
-
+    <div class="menu-mobile"> 
+        <label for="toggle"><img src="static/css/img/menu1.png" alt="menu-bars"  class="menu-bars"></label>
+        </div>
+        <input type="checkbox" id="toggle"/>
+    <div class="menu">
+        <nav class="main-menu">
+                <a href="" class="main-icon">Rentel</a>
+                
+                <ul>
+            
+               <li><a class="level" >O nás</a>
+                    <ul>
+                        
+                        <li><a href="{{ url_for('main.onas') }}">Rentel</a></li>
+                        <li><a href="">Historie</a></li>
+                        
+                    </ul>
+                </li>
+                
+                <li><a  class="level" >Hotely</a>
+                    <ul>
+                            
+                        <li><a href="">Praha</a></li>
+                        <li><a href="">Brno</a></li>
+                        <li><a href="">Olomouc</a></li>
+                        <li><a href="">Ostrava</a></li>
+                    
+                    </ul>
+                </li>
+                <li><a class="level" >Služby</a>
+                    <ul> 
+                        
+                        <li><a href="">Ubytování</a></li>    
+                        <li><a href="">Sport</a></li>
+                        <li><a href="">Personál</a></li> 
+                    
+                    </ul>
+                </li>
+                <li><a onclick="openLoginForm()" class="level" >Login</a></li>
+            </ul>
+            
+        </nav>
+    </div>
     <!-- a taky asi login div -->
     {% if not current_user.is_authenticated %}
     <div id="login-window">
@@ -81,15 +123,20 @@
         <hr>
         <button onclick="closeLoginForm()">Exit</button>
     </div>
-    <button onclick="openLoginForm()">Login</button>
+    
     {% else %}
         <form method="POST" action="{{ url_for('main.logout') }}">
             {{ registerForm.hidden_tag() }}
             <input type="submit" value="Logout">
         </form>
     {% endif %}
+    <h1 class="main-title">
+        Rentel
+    </h1>
+    
     {% block body %} 
     {% endblock %}
+    
 </body>
 
 </html>

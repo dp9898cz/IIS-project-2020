@@ -84,3 +84,11 @@ def logout():
     logout_user()
     return redirect(url_for('main.index'))
 
+@main.route('/onas', methods=['GET'])
+def onas():
+    context = {
+                'registerForm': RegisterForm(),
+                'loginForm': LoginForm(),
+                'openWindow': 1
+            }
+    return render_template('aboutus.html', **context)
