@@ -3,7 +3,7 @@ from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, login_required
 
 from appdata.extensions import db
-from appdata.models import Users, Hotel
+from appdata.models import User, Hotel
 from appdata.forms import RegisterForm, LoginForm
 
 main = Blueprint('main', __name__)
@@ -33,7 +33,7 @@ def register():
     name = request.form['name']
     unhashed_pass = request.form['password']
     
-    user = Users(
+    user = User(
         name = name, 
         unhashed_password = unhashed_pass, 
         isAdmin = True
@@ -56,7 +56,7 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = Users.query.filter_by(name=form.login.data).first()
+        user = User.query.filter_by(login=form.login.data).first()
         if not user or not check_password_hash(user.password, form.password.data):
             #todo wrong password error
             context = {
