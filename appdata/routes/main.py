@@ -67,3 +67,72 @@ def logout():
     logout_user()
     return redirect(url_for('main.index'))
 
+#o nás-rentel -template
+@main.route('/onas', methods=['GET'])
+def onas():
+    context = {
+                'registerForm': RegisterForm(),
+                'loginForm': LoginForm(),
+                'openWindow': 1
+            }
+    return render_template('aboutus.html', **context)
+
+#o nás-historie -template
+@main.route('/historie', methods=['GET'])
+def history():
+    context = {
+                'registerForm': RegisterForm(),
+                'loginForm': LoginForm(),
+                'openWindow': 1
+            }
+    return render_template('history.html', **context)
+
+#hotely -hotel -template
+@main.route('/hotel', methods=['GET'])
+def hotel():
+    context = {
+                'registerForm': RegisterForm(),
+                'loginForm': LoginForm(),
+                'openWindow': 1
+            }
+    return render_template('hotel.html', **context)
+
+#o služby -template
+@main.route('/služby', methods=['GET'])
+def services():
+    context = {
+                'registerForm': RegisterForm(),
+                'loginForm': LoginForm(),
+                'openWindow': 1
+            }
+    return render_template('services.html', **context)
+#o služby-ubytovani -template
+@main.route('/ubytovani', methods=['GET'])
+def ubytovani():
+    context = {
+                'registerForm': RegisterForm(),
+                'loginForm': LoginForm(),
+                'openWindow': 1
+            }
+    return render_template('ubytovani.html', **context)
+
+#o služby-sport -template
+@main.route('/sport', methods=['GET'])
+def sport():
+    context = {
+                'registerForm': RegisterForm(),
+                'loginForm': LoginForm(),
+                'openWindow': 1
+            }
+    return render_template('sport.html', **context)
+
+#o služby-personal -template
+@main.route('/personal', methods=['GET'])
+def personal():
+    context = {
+                'registerForm': RegisterForm(),
+                'loginForm': LoginForm(),
+                'openWindow': 1
+            }
+    return render_template('personal.html', **context)
+

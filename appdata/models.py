@@ -40,7 +40,7 @@ class Hotel(db.Model):
 
 class Visit(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    customer_id = db.Column(db.Integer, db.ForeignKey('customer.user_id'))
+    customer_id = db.Column(db.String(32), db.ForeignKey('customer.user_id'))
     date_from = db.Column(db.DateTime, nullable=False)
     date_to = db.Column(db.DateTime, nullable=False)
     price = db.Column(db.Integer)

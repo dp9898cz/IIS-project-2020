@@ -1,2 +1,4 @@
 FLASK_ENV=development
 FLASK_APP=app
+SECRET_KEY=dnsgvjdsfvfsdvb
+WTF_CSRF_SECRET_KEY=acsrfsecretkey

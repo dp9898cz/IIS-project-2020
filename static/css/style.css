@@ -1,22 +1,405 @@
-body {
-    background-color: steelblue;
+/*-------------------------------------------------------*/
+/*Main css file*/
+/*-------------------------------------------------------*/
+/*Main icon*/
+.main-icon{
+    font-family:"Blanka-Regular", serif; 
+    font-size: 48px;
+    float: left;
+    margin: 10px;
+    margin-left: 20px;
+    padding-left: 5px;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    line-height: 48px;
+    /*border: solid 1px white;*/
+    border-radius: 10px 10px 10px 10px;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+@keyframes blackwhite {
+    from {background-color: black;}
+    to {background-color: white;}
 }
 
-h1 {
-    color: aquamarine;
+.main-icon:hover{
+    color: black;
+    background-color: white;
+    animation-name: blackwhite;
+    animation-duration: 1s ;
 }
 
+@font-face {
+    font-family: "Blanka-Regular";
+    src: url("font/Blanka-Regular.otf") format("opentype");
+}
+/*----------------------------------------------------------------*/
+/*Menu bar*/
+.menu{
+    margin: 10px;
+}
+.main-menu{
+    font-family: Verdana ;
+    font-size: 15px;
+    background-color: #0d0d0d;
+    
+    text-transform: uppercase;
+    position: relative;
+    text-align: center;
+    float: left;
+    width: 100%;
+    margin-bottom: 8vh;
+    border-radius: 0px 10px 0px 10px;
+    
+}
+.main-menu a{
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    
+}
+.main-menu ul li ul li:hover{
+    background-color: white;
+    animation-name: blackwhite;
+    animation-duration: 1s;
+    
+}
+.main-menu ul li ul li a:hover{
+    color: #000;
+    
+}
+.main-menu ul{
+    position: absolute;
+    text-align: center;
+    right: 0;
+    float: right;
+    list-style: none;
+    
+    
+}
+.level{
+    cursor: pointer;
+}
+.level:before{
+    content: '';
+    width: 0px;
+    position: absolute;
+    border-bottom: 5px solid white;
+    bottom: 20px;
+    left: 5px;
+    transition: 0.7s all;
+  }
+.level:hover::before{
+    width: 105px;
+  }
+  
+.main-menu ul li{
+    position: relative;
+    float: left;
+    text-align: center;
+    width: 115px;
+}
+
+.main-menu ul li a{
+    display: block;
+    padding: 5px;
+    padding-top: 35px;
+    padding-bottom: 32px;
+}
+
+.main-menu ul li ul{
+    float: none;
+}
+
+.main-menu ul li ul li {
+    background-color: black;
+    display: none;
+    opacity: .8;
+    border-radius: 0px 5px 0px 5px;
+    margin:1px;
+    
+}
+.main-menu ul li ul li a{
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.main-menu ul li:hover ul li{
+    display: block;
+    float: none;
+    
+}
+.menu-bars{
+    padding: 10px;
+    height:40px;
+    z-index: 5;
+    cursor: pointer;
+    display: none;
+}
+
+#toggle{
+    display: none;
+}
+/*-------------------------------------------------------*/
+/* Menu mobile*/
+
+@media(max-width: 840px){
+    .menu{
+        background-color: #000;
+        margin:0;
+        padding: 0;
+        display: none;
+        
+    }
+
+    .main-menu{
+        margin:0;
+        padding: 0;
+        display: unset;
+        position: unset;
+        padding-top:20px;
+        display: block;
+        border-radius: 0;
+        
+    }
+    .main-menu ul{
+        display: unset;
+        position: unset;
+        background-color: #222222;
+        margin-top:30px; 
+        
+    }
+    .main-menu ul a{
+        float:none;
+        text-align: center;
+        position: unset;
+        display: unset;
+        width: 100vw;
+        
+    }
+
+    .main-menu ul li{
+        float: none;
+        position: unset;
+        display: unset;
+        margin:0;
+        padding: 5px;
+        
+    }
+
+    .main-menu ul li a{
+        margin:0;
+        padding: 5px;
+        font-size: 4vw;
+        line-height:5vw;
+    }
+    .main-menu ul li ul li{
+        width: 100vw;
+        margin:0;
+        padding: 5px;
+        font-size: 4vw;
+        line-height:5vw;
+    }
+    .main-menu ul li ul li.selected{
+        display: block;
+        
+    }
+
+
+    .main-menu ul li:hover ul li{
+        
+        display: block;
+    }
+
+    .level:hover::before{
+        width: 0px;
+    }
+    .main-menu ul li ul li a{
+        margin:0;
+        padding: 5px;
+        
+    } 
+    .main-icon{
+        font-size: 10vw;
+        line-height:10vw;
+        float: none;
+        position: unset;
+        display: unset;
+        
+    }
+    .main-title{
+        font-size: 18vw;
+        
+    }
+    
+    .menu-bars{
+        display: unset;
+    
+    }
+    .menu-mobile{
+        width: 100%;
+        background-color:#0d0d0d;
+        
+    }
+
+    #toggle:checked + .menu{
+        display: block;
+        
+    }
+    #toggle{
+            position: absolute;
+            
+            height:40px;
+            z-index: 5;
+            cursor: pointer;
+            display: none;
+        
+    }
+    .main-title{
+        font-size: 18vw;
+        
+    }
+    
+    
+}
+/*-----------------------------------------------------------*/
+/* Main title*/
+
+.main-title{
+    font-family:"Blanka-Regular", serif; 
+    font-size: 150px;
+    text-align: center;
+    margin-bottom: 30vh;
+    color: white;
+    letter-spacing: 3px;
+}
+/* ----------------------------------------------------*/
+/* Body of site site(background) */
+#blur{
+    background-image: url("img/pozadi.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size:cover;
+    width: auto;
+    height: 100%;
+    top:0px;
+    overflow: hidden;
+}
+body{
+    margin: 0;
+    
+
+}
+
+/* ----------------------------------------------------*/
+/* Content of site site */
+
+.content{
+    width: auto;
+    float: left;
+    background-color: white;
+    margin: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-radius: 5px 5px 0px 0px;
+    padding-bottom: 20px;
+    
+}
+.content h1{
+    font-family:"Verdana", serif; 
+    font-size: 75px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #000;
+    margin: 50px;
+}
+.content p{
+    font-size: 25px;
+    float: left;
+}
+/* ----------------------------------------------------*/
+/* Hotely main site */
+#hotely{
+    width: 90%;
+    margin: 5%;
+}
+
+.hotel {
+    width: 45%;
+    margin: 2.5%;
+    float: left;
+    
+}
+
+.hotel img {
+    width: 100%;
+    
+}
+.hotel p{
+    position: absolute;
+    
+    /*padding-left: 30%;
+    padding-top: 30%;*/
+    color: rgb(255, 255, 255);
+    
+}
+@media (max-width: 840px) {
+    .hotel {
+        width: 95%;
+        margin: 2,5%;
+        float: left;
+    }
+}
+/* ----------------------------------------------------*/
+/* Login windows */
 #login-window {
     display: none;
     position: fixed;
     margin: 5% auto;
     left: 0;
     right: 0;
-    height: 700px;
-    width: 600px;
+    top: 0vh;
+    height: 300px;
+    width: 400px;
     background-color:white;
+    box-shadow: 0 20px 100px 0 rgba(0, 0, 0, 9), 0 40px 30px 0 rgba(0, 0, 0, 0.39);
+    border-radius: 5px 5px 5px 5px;
 }
+#login-window h1{
+    text-align: center;
+    font-family:"Verdana", serif; 
+    font-size: 45px;
+    text-transform: uppercase;
+}
+#login-window{
+    font-family:"Verdana", serif; 
+    font-size: 25px;
+    padding: 6px 12px;
+    
+}
+#login-window button {
+  background-color: rgb(48, 46, 46);
+  color: white;
+  border: 2px solid #555555;
+  border-radius: 5px 5px 5px 5px;
+  transition-duration: 0.4s;
+  padding: 16px 32px;
+  float: left; 
+  margin-top:30px;
+  margin-right: 50px;
+}
+#login-window input {
+    float: right;
+    padding: 6px 12px;
+    
+  }
 
+#login-window button:hover {
+  background-color: #e4e4e4;
+  color: black;
+}
 #register-option {
     display: none;
 }
