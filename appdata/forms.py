@@ -3,9 +3,6 @@ from wtforms import StringField, TextField, SubmitField, PasswordField, HiddenFi
 from wtforms.validators import Length, Email, EqualTo, InputRequired, DataRequired
 from werkzeug.security import check_password_hash
 
-RECAPTCHA_PUB_KEY = "6LfQyOQZAAAAABz5D6J3wx9gQlaWJ3SyVH7uZG7V"
-RECAPTCHA_PRIV_KEY = "6LfQyOQZAAAAAJpSCyr5n_FkDvz3TZc87g3qSkRw"
-
 from appdata.models import User, Customer
 
 class RegisterForm(FlaskForm):
@@ -25,7 +22,7 @@ class RegisterForm(FlaskForm):
             DataRequired(),
             EqualTo('reg_password', message='Passwords must match.')
             ])
-    #recaptcha = RecaptchaField()
+    recaptcha = RecaptchaField()
     submit = SubmitField('Register')
 
     def validate_reg_login(self, field):
