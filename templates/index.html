@@ -6,10 +6,9 @@
         window.addEventListener("load", function(){
             if ({{ openWindow or 0 }}) {
                 openLoginForm();
-                if ({{ registerForm.name.data or 0 }}) {
+                if ({{ 1 if registerForm.reg_login.data else 0 }}) {
                     // user wats to register again
                     toggleLoginRegisterOption();
-                    // fix csrf 2 ids
                 }
             }
         });
