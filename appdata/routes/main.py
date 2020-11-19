@@ -3,7 +3,7 @@ from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, login_required
 
 from appdata.extensions import db
-from appdata.models import Users, Hotel
+from appdata.models import User, Customer
 from appdata.forms import RegisterForm, LoginForm
 
 main = Blueprint('main', __name__)
@@ -22,54 +22,37 @@ def index():
 @main.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
-    print(form.email)
-    if form.validate_on_submit():
-        print("success")
-        return render_template('index.html', registerForm=form, openWindow=0)
-    else:
-        print("failed")
-        return render_template('index.html', registerForm=form, openWindow=1)
-
-    name = request.form['name']
-    unhashed_pass = request.form['password']
-    
-    user = Users(
-        name = name, 
-        unhashed_password = unhashed_pass, 
-        isAdmin = True
-    )
-
-    db.session.add(user)
-    try:
+    if request.method == 'POST' and form.validate_on_submit():
+        #successfully validated
+        customer = Customer(
+            user = User(
+                login = form.reg_login.data,
+                unhashed_password = form.reg_password.data
+            ), 
+            email = form.email.data
+        )
+        db.session.add(customer)
         db.session.commit()
-    except:
-        print("user already exists")
-        #todo error handle
+        login_user(customer.user)
         return redirect(url_for('main.index'))
+    else:
+        # validation failed or GET
+        context = {
+            'registerForm': form,
+            'loginForm': LoginForm(),
+            'openWindow': 1
+        }
+        return render_template('index.html', **context)
 
-    #login the user
-    login_user(user)
-
-    return redirect(url_for('main.index')) #todo? maybe redirect to the profile?
-
-@main.route('/login', methods=['POST'])
+@main.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
-        user = Users.query.filter_by(name=form.login.data).first()
-        if not user or not check_password_hash(user.password, form.password.data):
-            #todo wrong password error
-            context = {
-                'registerForm': RegisterForm(),
-                'loginForm': form,
-                'openWindow': 1
-            }
-            return render_template('index.html', **context)
-        else:
-            #successfully logged in
-            login_user(user)
-            return redirect(url_for("main.index"))
+    if request.method == 'POST' and form.validate_on_submit():
+        #successfully validate
+        login_user(User.query.filter_by(login=form.login.data).first())
+        return redirect(url_for("main.index"))
     else:
+        # validation failed or GET
         context = {
             'registerForm': RegisterForm(),
             'loginForm': form,
