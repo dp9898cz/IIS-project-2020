@@ -1,10 +1,15 @@
 
 function openLoginForm() {
     document.getElementById("login-window").style.display = "block";
+    document.getElementById("blur").style.filter = "blur(10px)";
+    
 }
 
 function closeLoginForm() {
     document.getElementById("login-window").style.display = "none";
+    document.getElementById("blur").style.filter = "blur(0px)";
+    
+
 }
 
 function fixMultiFormsIDs() {
