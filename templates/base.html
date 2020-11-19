@@ -89,10 +89,10 @@
             <hr>
             <form method="POST" action="{{ url_for('main.register') }}">
                 {{ registerForm.hidden_tag() }}
-                <div class="form-field">{{ registerForm.name.label }} {{ registerForm.name }}
-                    {% if registerForm.name.errors %}
+                <div class="form-field">{{ registerForm.reg_login.label }} {{ registerForm.reg_login }}
+                    {% if registerForm.reg_login.errors %}
                     <ul class="errors">
-                        {% for error in registerForm.name.errors %}
+                        {% for error in registerForm.reg_login.errors %}
                         <li>{{ error }}</li>
                         {% endfor %}
                     </ul>
@@ -107,15 +107,26 @@
                         </ul>
                     {% endif %}
                 </div>
-                <div class="form-field">{{ registerForm.body.label }} {{ registerForm.body }}
-                    {% if registerForm.body.errors %}
+                <div class="form-field">{{ registerForm.reg_password.label }} {{ registerForm.reg_password }}
+                    {% if registerForm.reg_password.errors %}
                     <ul class="errors">
-                        {% for error in registerForm.body.errors %}
+                        {% for error in registerForm.reg_password.errors %}
                         <li>{{ error }}</li>
                         {% endfor %}
                     </ul>
                     {% endif %}
                 </div>
+                <div class="form-field">{{ registerForm.confirmPassword.label }} {{ registerForm.confirmPassword }}
+                    {% if registerForm.confirmPassword.errors %}
+                    <ul class="errors">
+                        {% for error in registerForm.confirmPassword.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {{ registerForm.recaptcha }}
+                <hr>
                 {{ registerForm.submit }}
             </form>
         </div>

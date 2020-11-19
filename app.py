@@ -4,7 +4,7 @@ import os
 from appdata.extensions import db, login_manager, csrf
 from appdata.commands import register_commands
 from appdata.routes.main import main
-from appdata.models import Users
+from appdata.models import User
 
 def create_app():
     app = f.Flask(__name__)
@@ -21,6 +21,6 @@ def create_app():
     login_manager.login_view = 'main.login'
     @login_manager.user_loader
     def loadUser(userID):
-        return Users.query.get(userID)
+        return User.query.get(userID)
     
     return app

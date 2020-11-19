@@ -33,7 +33,8 @@ function fixMultiFormsIDs() {
 function toggleLoginRegisterOption() {
     var str = document.getElementById("login-register-toggle").innerHTML;
     if (!str.localeCompare("Registrace")) {
-        // user wants to toggle to register
+        // user wants to toggle to login
+        console.log("going to login")  ;
         document.getElementById("login-option").style.display = "none";
         document.getElementById("register-option").style.display = "block";
         document.getElementById("login-register-toggle").innerHTML = "Přihlášení";
