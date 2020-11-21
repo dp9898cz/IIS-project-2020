@@ -51,7 +51,16 @@
                         
                         </ul>
                     </li>
-                    <li><a onclick="openLoginForm()" class="level" >Login</a></li>
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.isEmployee %}
+                            <li><a class="level">Správa</a></li>
+                        {% else %}
+                            <li><a class="level">{{ current_user.login }}</a></li>
+                        {% endif %}
+                        <li><a href="{{ url_for('main.logout') }}" class="level" >Odhlásit</a></li>
+                    {% else %} 
+                        <li><a onclick="openLoginForm()" class="level" >Přihlásit</a></li>
+                    {% endif %}
                 </ul>
                 
             </nav>

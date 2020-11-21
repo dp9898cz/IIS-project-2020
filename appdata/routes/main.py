@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from werkzeug.security import check_password_hash
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 from appdata.extensions import db
 from appdata.models import User, Customer
@@ -10,11 +10,9 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    r_form = RegisterForm()
-    l_form = LoginForm()
     context = {
-        'registerForm': r_form,
-        'loginForm': l_form,
+        'registerForm': RegisterForm(),
+        'loginForm': LoginForm(),
         'openWindow': 0
     }
     return render_template('index.html', **context)
@@ -35,7 +33,7 @@ def register():
         db.session.commit()
         login_user(customer.user)
         return redirect(url_for('main.index'))
-    else:
+    elif request.method == 'POST':
         # validation failed or GET
         context = {
             'registerForm': form,
@@ -43,6 +41,9 @@ def register():
             'openWindow': 1
         }
         return render_template('index.html', **context)
+    else:
+        # GET method
+        return redirect(url_for('main.index'))
 
 @main.route('/login', methods=['GET', 'POST'])
 def login():
@@ -51,21 +52,25 @@ def login():
         #successfully validate
         login_user(User.query.filter_by(login=form.login.data).first())
         return redirect(url_for("main.index"))
-    else:
-        # validation failed or GET
+    elif request.method == 'POST':
+        # validation failed
         context = {
-            'registerForm': RegisterForm(),
             'loginForm': form,
+            'registerForm' : RegisterForm(),
             'openWindow': 1
-        }
+        }        
         return render_template('index.html', **context)
+    else:
+        # GET method
+        return redirect(url_for('main.index'))
 
 
-@main.route('/logout', methods=['POST'])
+@main.route('/logout', methods=['GET'])
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
+
 
 #o nás-rentel -template
 @main.route('/onas', methods=['GET'])
