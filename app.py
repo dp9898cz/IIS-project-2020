@@ -4,6 +4,7 @@ import os
 from appdata.extensions import db, login_manager, csrf
 from appdata.commands import register_commands
 from appdata.routes.main import main
+from appdata.routes.dashboard import dash
 from appdata.models import User
 
 def create_app():
@@ -15,6 +16,7 @@ def create_app():
     login_manager.init_app(app)
 
     app.register_blueprint(main)
+    app.register_blueprint(dash)
 
     register_commands(app)
 

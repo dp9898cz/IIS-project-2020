@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dash_style.css') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/css/img/icon.png">
+    <script src="{{ url_for('static', filename='js/main.js') }}"> </script>
+    {% block head %} {% endblock %}
+</head>
+
+<body>
+<div id="menu">
+    <ul>
+    {% if current_user.is_authenticated and current_user.isEmployee %}
+        {% if current_user.employees.isAdmin %}
+            <li>Správa uživatelů</li>
+        {% endif %}
+        {% if current_user.employees.isOwner %}
+            <li>Správa hotelů</li>
+            <li>Správa pokojů</li>
+        {% endif %}
+        {% if current_user.employees.isManager %}
+            <li>Rezervace</li>
+            <li>Probíhající pobyty</li>
+            <li>Ukončené pobyty</li>
+        {% endif %}
+    {% endif %}
+    </ul>
+    <br>
+    <hr>
+    <br>
+    <a href="{{ url_for('main.logout') }}">Odhlásit se</a>
+</div>
+<div id='content'>
+    {% block body %}
+    {% endblock %}
+</div>
+</body>
+</html>
