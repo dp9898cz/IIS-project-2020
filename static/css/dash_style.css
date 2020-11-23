@@ -1,0 +1,10 @@
+#menu {
+    width: 200px;
+}
+
+#content {
+    background-color: aqua;
+    display: inline;
+    height: 200px;
+    
+}

@@ -53,7 +53,7 @@
                     </li>
                     {% if current_user.is_authenticated %}
                         {% if current_user.isEmployee %}
-                            <li><a class="level">Správa</a></li>
+                            <li><a href="{{url_for('dash.dash_index')}}" class="level">Správa</a></li>
                         {% else %}
                             <li><a class="level">{{ current_user.login }}</a></li>
                         {% endif %}
