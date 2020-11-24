@@ -35,7 +35,7 @@
     </ul>
 
     <a href="{{ url_for('main.logout') }}" id="logout">Odhlásit se</a>
-    <a href="" id="back">Zpět</a>
+    <a href="{{ url_for('main.index') }}" id="back">Zpět</a>
 </div>
 <div id='content'>
     {% block body %}
