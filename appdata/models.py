@@ -41,8 +41,7 @@ class Employee(db.Model):
 class Customer(db.Model):
     user_id = db.Column(db.String(32), db.ForeignKey('user.login'), primary_key = True)
     email = db.Column(db.String(254), nullable=False)
-    #? datum narozeni?
-
+    
     visits = db.relationship('Visit', backref='customer')
 
 
@@ -68,7 +67,6 @@ class Room(db.Model):
     night_price = db.Column(db.Float, nullable=False)
     room_type = db.Column(db.Enum(RoomType))
     number_of_beds = db.Column(db.Integer, nullable=False)
-    #?vybaveni?
 
     visits = db.relationship(
         'Visit',

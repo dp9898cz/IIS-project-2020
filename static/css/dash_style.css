@@ -8,3 +8,11 @@
     height: 200px;
     
 }
+
+.dash-table-head th{
+    width: 150px;
+}
+
+.update-form input, label, select{
+    width: 150px;
+}
