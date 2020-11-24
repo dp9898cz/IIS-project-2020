@@ -406,7 +406,7 @@ body{
    left: 0;
    right: 0;
    top: 0vh;
-   height: 420px;
+   height: auto;
    width: 400px;
    background-color:white;
    box-shadow: 0 20px 100px 0 rgba(0, 0, 0, 9), 0 40px 30px 0 rgba(0, 0, 0, 0.39);
@@ -414,8 +414,7 @@ body{
 }
 
 #register-option{
-   height: 550px;
-   width: 400px;
+   height: auto;
 }
 /*okno formuláře*/
 #login-window form{
@@ -462,4 +461,28 @@ body{
 
 #register-option{
    display: none;
+}
+
+/*Error zpravy*/
+#login-window ul{
+    color: white;
+    background: #c51244 !important;
+    padding: 10px !important;
+    border-radius: 0 !important;
+    position: relative; 
+    display: inline-block !important;
+    box-shadow: 1px 1px 1px #aaaaaa;
+    margin-top: -7px;
+    margin-bottom: 10px;
+}
+
+#login-window ul:before{
+    content: ''; 
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #c51244;
+    position: absolute; 
+    top: -10px;
 }
