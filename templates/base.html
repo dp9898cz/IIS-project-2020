@@ -81,7 +81,7 @@
     {% if not current_user.is_authenticated %}
     <div id="login-window">
         <div id="login-option">
-            <h1>Login</h1>
+            <h1>Přihlášení</h1>
             <hr>
             <form method="POST" action="{{ url_for('main.login') }}">
                 <!-- login form -->
@@ -108,7 +108,7 @@
             </form>
         </div>
         <div id="register-option">
-            <h1>Register</h1>
+            <h1>Registrace</h1>
             <hr>
             <form method="POST" action="{{ url_for('main.register') }}">
                 {{ registerForm.hidden_tag() }}
