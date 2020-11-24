@@ -11,7 +11,7 @@ class RegisterForm(FlaskForm):
         InputRequired()
         ])
     email = StringField('Email', [
-        Email(message=('Not a valid email address.')),
+        Email(message=('Zadejte validní email.')),
         InputRequired()
         ])
     reg_password = PasswordField('Heslo', [
