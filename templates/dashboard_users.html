@@ -1,0 +1,29 @@
+{% extends 'dashboard_base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<p>AAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+
+DD</p>
+{% if users %}
+    {% for user in users %}
+        <form method="POST" action="{{url_for('dash.update_user')}}">
+            <input type="hidden" value="{{user.id}}" name="old_id">
+            <label>{{user.id}}</label>
+            <input type="text" value="{{user.id}}" name="id" disabled>
+            <input type="text" value="{{user.login}}" name="login">
+            {% if user.employees %}
+            
+            <input type="text" value="{{user.employees.isAdmin}}" name="isAdmin">
+            {% else %}
+            <label>-</label>
+            {% endif %}
+            <input type="submit" value="Update">
+        </form>
+    {% endfor %}
+{% endif %}
+{% endblock %}

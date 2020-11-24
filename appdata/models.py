@@ -41,8 +41,7 @@ class Employee(db.Model):
 class Customer(db.Model):
     user_id = db.Column(db.String(32), db.ForeignKey('user.login'), primary_key = True)
     email = db.Column(db.String(254), nullable=False)
-    #? datum narozeni?
-
+    
     visits = db.relationship('Visit', backref='customer')
 
 
