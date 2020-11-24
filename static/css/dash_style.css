@@ -1,10 +1,117 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+body{
+    background-color: #dbdcdd;
+    display: flex;
+    position: relative;
+}
 #menu {
-    width: 200px;
+    width: 250px;
+    height: 100%;
+    background: #4e4e4e;
+    padding: 30px 0px;
+    position: fixed;
+
+}
+#menu ul {
+    list-style-type: none;
+}
+#menu li {
+    padding-left: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+}
+#menu li:hover{
+    background-color: rgb(236, 236, 236);
+    color: #000;
+    transition: 0.4s;
+}
+#main-icon{
+    font-family:"Blanka-Regular", serif; 
+    font-size: 40px;
+    padding: 60px;
+    color: rgb(255, 255, 255);
+}
+@font-face {
+    font-family: "Blanka-Regular";
+    src: url("font/Blanka-Regular.otf") format("opentype");
+}
+#logout{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    padding: 30%;
+    color: rgb(255, 255, 255);
+}
+#toggle:checked + #content4toggle #menu #back{
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    margin-top: 50px;
+    padding: 10px;
+    padding-bottom: 150px ;
+    
+}
+#back{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    padding-bottom: 50px ;
+    padding-left: 100px ;
+    color: rgb(255, 255, 255);
 }
 
+#toggle:checked + #content4toggle #menu{
+    width: 50px;
+    transition: 0.3s;
+}
+#toggle:checked + #content4toggle #menu li{
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    display: none;
+    
+}
+#toggle:checked + #content4toggle #menu #main-icon{
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    margin-top: 50px;
+    padding: 10px;
+    
+}
+#toggle:checked + #content4toggle #menu #logout{
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    margin-top: 50px;
+    padding: 10px;
+    
+}
+#toggle{
+    display: none;
+}
+label{
+    z-index: 1;
+    position: fixed;
+    padding-left: 2px;
+}
+label img{
+    width: 40px;
+}
 #content {
-    background-color: aqua;
-    display: inline;
-    height: 200px;
+    width: auto;
+    margin-left: 250px;
+}
+#toggle:checked + #content4toggle #content{
+    width: auto;
+    margin-left: 50px;
+}
+#content p{
+    font: 40px sans-serif;
     
 }
