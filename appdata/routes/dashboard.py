@@ -63,32 +63,50 @@ def update_user():
     except:
         pass
     return redirect(url_for('dash.user_index'))
+
+@dash.route('/dashboard/hotels')
+@csrf.exempt
+@login_required
 def hotels():
     if not current_user.isEmployee:
-         return redirect(url_for('main.index'))
+        return redirect(url_for('main.index'))
     else:
         return render_template('dashboard_hotels.html')
-@dash.route('/rooms', methods=['GET'])
+
+@dash.route('/dashboard/rooms')
+@csrf.exempt
+@login_required
 def rooms():
     if not current_user.isEmployee:
-         return redirect(url_for('main.index'))
+        return redirect(url_for('main.index'))
     else:
         return render_template('dashboard_rooms.html')
-@dash.route('/reservation', methods=['GET'])
+
+
+@dash.route('/dashboard/reservations')
+@csrf.exempt
+@login_required
 def reservation():
     if not current_user.isEmployee:
-         return redirect(url_for('main.index'))
+        return redirect(url_for('main.index'))
     else:
         return render_template('dashboard_reservation.html')
-@dash.route('/running', methods=['GET'])
+
+
+@dash.route('/dashboard/running')
+@csrf.exempt
+@login_required
 def running():
     if not current_user.isEmployee:
-         return redirect(url_for('main.index'))
+        return redirect(url_for('main.index'))
     else:
         return render_template('dashboard_running.html')
-@dash.route('/ended', methods=['GET'])
+
+@dash.route('/dashboard/ended')
+@csrf.exempt
+@login_required
 def ended():
     if not current_user.isEmployee:
-         return redirect(url_for('main.index'))
+        return redirect(url_for('main.index'))
     else:
         return render_template('dashboard_ended.html')
