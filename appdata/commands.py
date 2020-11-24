@@ -50,6 +50,27 @@ def register_commands(app):
             name = 'MyHotel',
             address = 'ulice č',
             description = 'deshkdsfgkbiiuv',
+            num_of_rooms = 3,
+            rooms = [
+                Room(
+                    number = 565,
+                    night_price = 54.88,
+                    room_type = 'ECON',
+                    number_of_beds = 2
+                ),
+                Room(
+                    number = 566,
+                    night_price = 88,
+                    room_type = 'PREM',
+                    number_of_beds = 3
+                )
+            ]
+        )
+
+        test_hotel_2 = Hotel(
+            name = 'MyHotel_2',
+            address = 'ulice č 2',
+            description = 'deshkdsfgkbidfDiuv',
             num_of_rooms = 2,
             rooms = [
                 Room(
@@ -114,6 +135,7 @@ def register_commands(app):
         )
 
         db.session.add(admin_employee)
+        db.session.add(test_hotel_2)
         db.session.add(owner_employee)
         db.session.add(manager_employee)
         db.session.add(test_customer)

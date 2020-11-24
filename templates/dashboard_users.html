@@ -1,28 +1,59 @@
 {% extends 'dashboard_base.html' %}
 
 {% block head %}
-
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <script>
+        var messages = {{ messages | safe }};
+        for (var i=0; i<messages.length; i++) {
+            alert(messages[i]);
+        }
+    </script>
+    {% endif %}
+{% endwith %}
 {% endblock %}
 
 {% block body %}
-<p>AAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
-
-DD</p>
 {% if users %}
+    <table>
+        <tr class="dash-table-head">
+            <th>ID</th>
+            <th>Login</th>
+            <th>Email</th>
+            <th>Zaměstanec</th>
+            <th>Recepční</th>
+            <th>Vlastník</th>
+            <th>Admin</th>
+            <th>Hotel</th>
+        </tr>
+    </table>
     {% for user in users %}
-        <form method="POST" action="{{url_for('dash.update_user')}}">
+        <form class="update-form" method="POST" action="{{url_for('dash.update_user')}}">
             <input type="hidden" value="{{user.id}}" name="old_id">
-            <label>{{user.id}}</label>
             <input type="text" value="{{user.id}}" name="id" disabled>
             <input type="text" value="{{user.login}}" name="login">
             {% if user.employees %}
-            
-            <input type="text" value="{{user.employees.isAdmin}}" name="isAdmin">
+            <input type="text" value="{{user.employees.email if user.employees.email else ''}}" name="email">
+            <input type="checkbox" checked disabled>
+            <input type="checkbox" value="{{user.employees.isManager}}" name="isManager" {% if user.employees.isManager %}checked{% endif %}>
+            <input type="checkbox" value="{{user.employees.isOwner}}" name="isOwner" {% if user.employees.isOwner %}checked{% endif %}>
+            <input type="checkbox" value="{{user.employees.isAdmin}}" name="isAdmin" {% if user.employees.isAdmin %}checked{% endif %}>
+            <select name="hotel">
+                {% for hotel in hotels %}
+                    <option selected="{{user.employees.hotel_id}}" value="{{hotel.id}}">{{hotel.name}}</option>
+                {% endfor %}
+            </select>
             {% else %}
-            <label>-</label>
+            <input type="text" value="{{user.customers.email}}" name="email">
+            <input type="checkbox" disabled>
+            <input type="checkbox" disabled>
+            <input type="checkbox" disabled>
+            <input type="checkbox" disabled>
+            <select disabled></select>
             {% endif %}
             <input type="submit" value="Update">
+            <input type="submit" value="Delete">
         </form>
     {% endfor %}
 {% endif %}
