@@ -19,8 +19,8 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100), nullable = False)
     isEmployee = db.Column(db.Boolean, nullable=False, default=False)
 
-    customers = db.relationship('Customer', uselist=False, backref='user')
-    employees = db.relationship('Employee', uselist=False, backref='user')
+    customers = db.relationship('Customer', uselist=False, backref='user', cascade="all, delete-orphan")
+    employees = db.relationship('Employee', uselist=False, backref='user', cascade="all, delete-orphan")
 
     @property
     def unhashed_password(self):
@@ -42,7 +42,7 @@ class Customer(db.Model):
     user_id = db.Column(db.String(32), db.ForeignKey('user.login'), primary_key = True)
     email = db.Column(db.String(254), nullable=False)
     
-    visits = db.relationship('Visit', backref='customer')
+    visits = db.relationship('Visit', backref='customer', cascade="all, delete-orphan")
 
 
 class Hotel(db.Model):

@@ -52,3 +52,20 @@ function toggleLoginRegisterOption() {
     }
     fixMultiFormsIDs();
 }
+
+function userCreateController() {
+    var obj = document.getElementById("dash_user_employee_check");
+
+    if (obj.checked == false){
+        for(let i = 0; i < 4; i++) {
+            obj = obj.nextElementSibling;
+            obj.disabled = true;
+        }
+    }
+    else {
+        for(let i = 0; i < 4; i++) {
+            obj = obj.nextElementSibling;
+            obj.disabled = false;
+        }
+    }
+}
