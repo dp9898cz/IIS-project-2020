@@ -18,7 +18,7 @@
 {% if users %}
     <h3>Hledat login:<h3>
     <form class="update-form" method="POST" action="{{url_for('dash.user_index')}}">
-        <input type="text" value="{{filter}}" name="user_filter">
+        <input type="text" value="{{filter if filter else ''}}" name="user_filter">
         <input type="submit" value="Hledat">
     </form>
     <h3>Nový uživatel:<h3>

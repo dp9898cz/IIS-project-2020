@@ -7,6 +7,12 @@ from appdata.extensions import csrf, db
 dash = Blueprint('dash', __name__)
 csrf.exempt(dash)
 
+
+"""
+User view CRUD
+    only admin rights
+
+"""
 @dash.route('/dashboard')
 @login_required
 def dash_index():
@@ -26,7 +32,7 @@ def user_index():
         #handle search request -> set cookie and redirect to the main user page
         login_filter = request.form['user_filter']
         if (login_filter):
-            users = User.query.filter_by(login=login_filter).all()
+            users = User.query.filter(User.login.contains(login_filter)).all()
         else:
             users = User.query.order_by(User.isEmployee.desc()).all()
         hotels = Hotel.query.all()
@@ -38,7 +44,7 @@ def user_index():
         # main user page (apply search results filter if any)
         user_filter = request.cookies.get('filter')
         if (user_filter):
-            users = User.query.filter_by(login=user_filter).all()
+            users = User.query.filter(User.login.contains(user_filter)).all()
         else:
             users = User.query.order_by(User.isEmployee.desc()).all()
         hotels = Hotel.query.all()
@@ -61,7 +67,12 @@ def update_user():
         if (request.form.get('password') != ''):
             old_user_obj.unhashed_password = request.form.get('password')
         if (old_user_obj.isEmployee):
-            old_user_obj.employees.isAdmin = 'on' == request.form.get('isAdmin')
+            if (old_user_obj.employees.isAdmin and old_user_obj.id == current_user.id):
+                # admin cant change admin right to itself
+                print("here")
+                pass
+            else:
+                old_user_obj.employees.isAdmin = 'on' == request.form.get('isAdmin')
             old_user_obj.employees.isOwner = 'on' == request.form.get('isOwner')
             old_user_obj.employees.isManager = 'on' == request.form.get('isManager')
             old_user_obj.employees.email = request.form.get('email')
@@ -85,6 +96,10 @@ def user_delete():
         print(e)
         flash("Něco se pokazilo. Opakujte akci.")
     return redirect(url_for('dash.user_index'))
+
+
+
+
 
 @dash.route('/dashboard/users/create', methods=['POST'])
 @login_required
