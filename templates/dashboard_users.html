@@ -20,7 +20,6 @@
         <h3>Nový uživatel:</h3>
         <table>
             <tr class="dash-table-head">
-                <th>ID</th>
                 <th>Login</th>
                 <th>Heslo</th>
                 <th>Email</th>
@@ -33,7 +32,6 @@
             </tr>
             <tr>
                 <form class="update-form" method="POST" action="{{url_for('dash.user_create')}}">
-                    <th><input placeholder="tohle odstranit" disabled></th>
                     <th><input type="text" name="login" placeholder="login"></th>
                     <th><input type="text" name="password" placeholder="password"></th>
                     <th><input type="text" name="email" placeholder="email"></th>
@@ -61,7 +59,6 @@
     </div>  
     <table class="master-table">
         <tr class="dash-table-head">
-            <th>ID</th>
             <th>Login</th>
             <th>Heslo</th>
             <th>Email</th>
@@ -75,7 +72,6 @@
         <tr>
             <form class="update-form" method="POST" action="{{url_for('dash.update_user')}}">
                 <input type="hidden" value="{{user.id}}" name="old_id">
-                <th><input type="text" value="{{user.id}}" name="id" disabled></th>
                 <th><input type="text" value="{{user.login}}" name="login"></th>
                 <th><input type="text" value="" name="password"></th>
                 {% if user.employees %}

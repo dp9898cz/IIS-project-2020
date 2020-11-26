@@ -28,7 +28,6 @@
     {% for hotel in hotels %}
         <div>
         <form class="update-form" method="POST" action="{{url_for('dash.hotel_update')}}">
-            <input type="text" value="{{hotel.id}}" name="id" disabled>
             <input type="text" value="{{hotel.name}}" name="name">
             <input type="text" value="{{hotel.address}}" name="address">
             <input type="text" value="{{hotel.description}}" name="description">
