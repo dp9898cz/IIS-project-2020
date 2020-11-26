@@ -18,8 +18,8 @@
 {% if users %}
     <div class="adding">
         <h3>Nový uživatel:</h3>
-        <table>
-            <tr class="dash-table-head">
+        <table class="new-table-style">
+            <tr>
                 <th>Login</th>
                 <th>Heslo</th>
                 <th>Email</th>
@@ -50,14 +50,14 @@
             </tr>
         </table> 
     </div> 
-    <div class="find">
+    <div class="find" >
         <h3>Hledat login:</h3>
         <form class="update-form" method="POST" action="{{url_for('dash.user_index')}}">
             <input type="text" value="{{filter if filter else ''}}" name="user_filter">
             <input type="submit" value="Hledat">
         </form>
     </div>  
-    <table class="master-table">
+    <table id="master-table" class="table-style">
         <tr class="dash-table-head">
             <th>Login</th>
             <th>Heslo</th>

@@ -5,43 +5,59 @@
 {% endblock %}
 
 {% block body %}
-<h3>Nový hotel:</h3>
-    <form class="update-form" method="POST" action="{{url_for('dash.hotel_index')}}">
-        <input placeholder="tohle odstranit" disabled>
-        <input type="text" name="name" placeholder="Název hotelu">
-        <input type="text" name="address" placeholder="Adresa">
-        <input type="text" name="description" placeholder="Popis">
-        <input type="submit" value="Vytvořit">
-    </form>
-    <table>
-        <tr class="dash-table-head">
-            <th>ID</th>
-            <th>Název</th>
-            <th>Adresa</th>
-            <th>Popis</th>
-            <th>Místností</th>
-            <th>Zaměstnanců</th>
-            <th>Obsazených pokojů</th>
-            <th>Volných pokojů</th>
-        </tr>
-    </table>
-    {% for hotel in hotels %}
-        <div>
-        <form class="update-form" method="POST" action="{{url_for('dash.hotel_update')}}">
-            <input type="text" value="{{hotel.name}}" name="name">
-            <input type="text" value="{{hotel.address}}" name="address">
-            <input type="text" value="{{hotel.description}}" name="description">
-            <input type="text" value="{{hotel.rooms|length}}" name="rooms" disabled>
-            <input type="text" value="{{hotel.employees|length}}" name="employees" disabled>
-            <input type="text" value="{{occup_rooms | intersect(hotel.rooms)}}" name="taken" disabled>
-            <input type="text" value="{{hotel.rooms|length - occup_rooms | intersect(hotel.rooms)}}" name="free" disabled>
-            <input type="hidden" value="{{hotel.id}}" name="old_id">
-            <input type="submit" value="Update">
-        </form>
-        <form class="update-form" method="POST" action="{{url_for('dash.hotel_delete')}}">
-            <input type="hidden" value="{{hotel.id}}" name="id">
-            <input type="submit" value="Delete">
-        </form>
-        </div>
-    {% endfor %}
+    <div class="adding">
+        <h3>Nový hotel:</h3>
+        <table class="new-table-style">
+            <tr class="dash-table-head">
+                <th>Název</th>
+                <th>Adresa</th>
+                <th>Popis</th>
+                <th> </th>
+            </tr>
+            <tr>
+                <form class="update-form" method="POST" action="{{url_for('dash.hotel_index')}}">
+                    <th><input type="text" name="name" placeholder="Název hotelu"></th>
+                    <th><input type="text" name="address" placeholder="Adresa"></th>
+                    <th><input type="text" name="description" placeholder="Popis"></th>
+                    <th><input type="submit" value="Vytvořit"></th>
+                </form>
+            </tr>   
+        </table>
+    </div>
+    <div class="master-table-without-find">
+        <h3>Hotely:</h3>
+        <table id="master-table" class="table-style">
+            <tr>
+                <th>Název</th>
+                <th>Adresa</th>
+                <th>Popis</th>
+                <th>Místností</th>
+                <th>Zaměstnanců</th>
+                <th>Obsazených pokojů</th>
+                <th>Volných pokojů</th>
+            </tr>
+        {% for hotel in hotels %}
+            <tr>
+                <div>
+                    <form class="update-form" method="POST" action="{{url_for('dash.hotel_update')}}">
+                        <th><input type="text" value="{{hotel.name}}" name="name"></th>
+                        <th><input type="text" value="{{hotel.address}}" name="address"></th>
+                        <th><input type="text" value="{{hotel.description}}" name="description"></th>
+                        <th><input type="text" value="{{hotel.rooms|length}}" name="rooms" disabled></th>
+                        <th><input type="text" value="{{hotel.employees|length}}" name="employees" disabled></th>
+                        <th><input type="text" value="{{occup_rooms | intersect(hotel.rooms)}}" name="taken" disabled></th>
+                        <th><input type="text" value="{{hotel.rooms|length - occup_rooms | intersect(hotel.rooms)}}" name="free" disabled></th>
+                        <th><input type="hidden" value="{{hotel.id}}" name="old_id"></th>
+                        <th><input type="submit" value="Update"></th>
+                    </form>
+                    <form class="update-form" method="POST" action="{{url_for('dash.hotel_delete')}}">
+                        <th><input type="hidden" value="{{hotel.id}}" name="id"></th>
+                        <th><input type="submit" value="Delete"></th>
+                    </form>
+                </div>
+
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
 {% endblock %}
