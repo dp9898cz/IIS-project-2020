@@ -140,3 +140,12 @@ def personal():
                 'openWindow': 1
             }
     return render_template('personal.html', **context)
+
+@main.route('/rooms', methods=['GET'])
+def rooms():
+    context = {
+                'registerForm': RegisterForm(),
+                'loginForm': LoginForm(),
+                'openWindow': 1
+            }
+    return render_template('room-types.html', **context)

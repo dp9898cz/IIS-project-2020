@@ -297,7 +297,7 @@ body{
 /* Content of site site */
 
 .content{
-    width: auto;
+    width: 99%;
     float: left;
     background-color: white;
     margin: 10px;
@@ -485,4 +485,90 @@ body{
     border-bottom: 10px solid #c51244;
     position: absolute; 
     top: -10px;
+}
+
+/*-------------------------Typy pokoju------------------------------------*/
+
+html{
+  font-size: 62.5%;
+}
+
+.container{
+  max-width: 300rem;
+  padding: 1.5rem;
+}
+
+.cards{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-gap: 2.5rem;
+}
+
+.card{
+  font-family: sans-serif;
+  background-color: #262525;
+  color: #fff;
+  padding: 1.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-image: url('static/css/img/economy-1.jpg');
+
+}
+
+.card-tittle-large{
+  font-family: fantasy;
+  font-size: 10rem;
+  letter-spacing: .5rem;
+  transform: translateX(7rem);
+  color: #1d1d1d;
+  transition: transform 5s;
+}
+
+.card-tittle-small{
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.card-description{
+  font-size: 1.2rem;
+  line-height: 1.5;
+
+}
+
+.card-cta{
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  margin-top: 1rem;
+  align-self: flex-end;
+  border: 2px solid black;
+  padding: 5px 10px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+
+.card:hover .card-tittle-large{
+  transform: translateX(-150%);
+  color: #fff;
+}
+
+.card.economy:hover{
+  background-color: #e13571;
+}
+
+.card.bussines:hover{
+  background-color: #02b2e1;
+}
+
+.card.premium:hover{
+    background-color: #e0d018;
+  }
+
+.img-align{
+    width: 300px;
+    height: 200px;
+    float: left;
+    margin-right: 6px;
 }
