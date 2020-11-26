@@ -50,7 +50,6 @@ def register_commands(app):
             name = 'MyHotel',
             address = 'ulice č',
             description = 'deshkdsfgkbiiuv',
-            num_of_rooms = 3,
             rooms = [
                 Room(
                     number = 565,
@@ -71,7 +70,6 @@ def register_commands(app):
             name = 'MyHotel_2',
             address = 'ulice č 2',
             description = 'deshkdsfgkbidfDiuv',
-            num_of_rooms = 2,
             rooms = [
                 Room(
                     number = 565,

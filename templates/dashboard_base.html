@@ -23,7 +23,7 @@
             <li><a href="{{url_for('dash.user_index')}}">Správa uživatelů</a></li>
         {% endif %}
         {% if current_user.employees.isOwner %}
-            <a href="{{ url_for('dash.hotels') }}"><li>Správa hotelů</li></a>
+            <a href="{{ url_for('dash.hotel_index') }}"><li>Správa hotelů</li></a>
             <a href="{{ url_for('dash.rooms') }}"><li>Správa pokojů</li></a>
         {% endif %}
         {% if current_user.employees.isManager %}

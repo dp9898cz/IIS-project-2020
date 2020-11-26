@@ -24,5 +24,9 @@ def create_app():
     @login_manager.user_loader
     def loadUser(userID):
         return User.query.get(userID)
+
+    @app.template_filter()
+    def intersect(a, b):
+        return len(set(a).intersection(b))
     
     return app
