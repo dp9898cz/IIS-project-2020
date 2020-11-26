@@ -24,7 +24,7 @@
         {% endif %}
         {% if current_user.employees.isOwner %}
             <a href="{{ url_for('dash.hotel_index') }}"><li>Správa hotelů</li></a>
-            <a href="{{ url_for('dash.rooms') }}"><li>Správa pokojů</li></a>
+            <a href="{{ url_for('dash.room_index') }}"><li>Správa pokojů</li></a>
         {% endif %}
         {% if current_user.employees.isManager %}
             <a href="{{ url_for('dash.reservation') }}"><li>Rezervace</li></a>

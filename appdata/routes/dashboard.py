@@ -199,14 +199,76 @@ def hotel_delete():
             flash("Něco se pokazilo. Opakujte akci.")
         return redirect(url_for('dash.hotel_index'))
 
-@dash.route('/dashboard/rooms')
+@dash.route('/dashboard/room_index', methods=['POST', 'GET'])
 @login_required
-def rooms():
+def room_index():
     if not current_user.isEmployee:
         return redirect(url_for('main.index'))
     else:
-        return render_template('dashboard_rooms.html')
+        if request.method == 'POST':
+            #filter setting
+            hotel_id = request.form.get('hotel')
+            context = {
+                'selected_h': hotel_id,
+                'hotels': Hotel.query.all(),
+                'rooms': Room.query.filter_by(hotel_id=hotel_id).order_by(Room.number.desc()).all(),
+                'occup_rooms': Room.query.outerjoin(Visit, Room.visits).filter(Visit.visit_type=='NOW').all()
+            }
+            resp = make_response(render_template('dashboard_users.html', **context))
+            resp.set_cookie('selected_hotel', hotel_id)
+            resp.headers['location'] = url_for('dash.room_index')
+            return resp, 302
 
+        else:
+            selected_hotel = request.cookies.get('selected_hotel')
+            if not selected_hotel:
+                selected_hotel = Hotel.query.first().id
+            context = {
+                'selected_h': selected_hotel,
+                'hotels': Hotel.query.all(),
+                'rooms': Room.query.filter_by(hotel_id=selected_hotel).order_by(Room.number.desc()).all(),
+                'occup_rooms': Room.query.outerjoin(Visit, Room.visits).filter(Visit.visit_type=='NOW').all()
+            }
+            print(selected_hotel)
+            return render_template('dashboard_rooms.html', **context)
+
+@dash.route('/dashboard/room_create', methods=['POST'])
+@login_required
+def room_create():
+    if not current_user.isEmployee:
+        return redirect(url_for('main.index'))
+    else:
+        print(request.form)
+        try:
+            temp = Room(
+                number = request.form.get('number'),
+                night_price = request.form.get('price'),
+                room_type = request.form.get('type'),
+                number_of_beds = request.form.get('beds'),
+                hotel_id = request.form.get('hotel')
+            )
+            db.session.add(temp)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            flash("Něco se pokazilo. Zkuste to znovu.")
+        return redirect(url_for('dash.room_index'))
+
+@dash.route('/dashboard/room_update', methods=['POST'])
+@login_required
+def room_update():
+    if not current_user.isEmployee:
+        return redirect(url_for('main.index'))
+    else:
+        return redirect(url_for('dash.room_index'))
+
+@dash.route('/dashboard/room_delete', methods=['POST'])
+@login_required
+def room_delete():
+    if not current_user.isEmployee:
+        return redirect(url_for('main.index'))
+    else:
+        return redirect(url_for('dash.room_index'))
 
 @dash.route('/dashboard/reservations')
 @login_required

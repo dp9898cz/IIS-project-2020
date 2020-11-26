@@ -89,7 +89,7 @@ def register_commands(app):
         another_room = Room(
             number = 569,
             night_price = 48,
-            room_type = 'PREM',
+            room_type = 'BUSS',
             number_of_beds = 3,
             hotel = test_hotel
         )

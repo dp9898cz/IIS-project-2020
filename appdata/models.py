@@ -10,8 +10,8 @@ class VisitType(enum.Enum):
 
 class RoomType(enum.Enum):
     ECON = 0
-    PREM = 1
-    SUPR = 2
+    BUSS = 1
+    PREM = 2
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True)
