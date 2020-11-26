@@ -20,7 +20,7 @@
     <ul>
     {% if current_user.is_authenticated and current_user.isEmployee %}
         {% if current_user.employees.isAdmin %}
-            <li><a href="{{url_for('dash.user_index')}}">Správa uživatelů</a></li>
+            <a href="{{url_for('dash.user_index')}}"><li>Správa uživatelů</li></a>
         {% endif %}
         {% if current_user.employees.isOwner %}
             <a href="{{ url_for('dash.hotel_index') }}"><li>Správa hotelů</li></a>
