@@ -50,9 +50,8 @@ class Hotel(db.Model):
     name = db.Column(db.String(100), nullable=False)
     address = db.Column(db.String)
     description = db.Column(db.String)
-    num_of_rooms = db.Column(db.Integer, default=0)
 
-    rooms = db.relationship('Room', backref='hotel')
+    rooms = db.relationship('Room', backref='hotel', cascade="all, delete-orphan")
     employees = db.relationship('Employee', backref='hotel')
 
 room_visit = db.Table('room_visit',
