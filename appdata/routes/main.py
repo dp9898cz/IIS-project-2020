@@ -140,4 +140,3 @@ def personal():
                 'openWindow': 1
             }
     return render_template('personal.html', **context)
-
