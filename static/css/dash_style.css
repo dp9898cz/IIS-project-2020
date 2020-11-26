@@ -59,79 +59,46 @@ body{
     font-family: "Blanka-Regular";
     src: url("font/Blanka-Regular.otf") format("opentype");
 }
+
 #toggle:checked + #content4toggle #menu #logout{
     writing-mode: vertical-rl;
     text-orientation: mixed;
-    margin-bottom: 150px;
-    margin-left: 3px;
-    padding: 10px;
-    
 }
-#logout{
-    font-size: 20px;
-    position: absolute;
-    bottom: 0;
-    display: flex;
-    padding: 10px;
-    margin-top: 0px;
-    margin-bottom: 90px;
-    margin-left: 60px;
-    color: rgb(255, 255, 255);
-    border-radius: 10px 0px 10px 0px;
-}
-#logout:hover{
-    color: #000;
-    background-color: rgb(255, 255, 255);
-}
+
 #toggle:checked + #content4toggle #menu #back{
     writing-mode: vertical-rl;
     text-orientation: mixed;
-    margin-top: 50px;
-    padding: 10px;
-    margin-bottom: 50px ;
-    margin-left: 3px ;
-    
+
 }
-#back{
-    font-size: 20px;
-    position: absolute;
-    bottom: 0;
-    display: flex;
-    margin-bottom: 50px ;
-    margin-left: 90px ;
-    color: rgb(255, 255, 255);
-    padding: 10px;
-    border-radius: 10px 0px 10px 0px;
+#toggle:checked + #content4toggle #menu #login{
+    display: none;
 }
-#back:hover{
-    color: #000;
-    background-color: rgb(255, 255, 255);
-}
-#log-text {
-    font-size: 20px;
-    position: absolute;
-    bottom: 0;
-    margin-bottom: 200px ;
-    margin-left:40px ;
-    color: rgb(255, 255, 255);
-    padding: 10px;
+#toggle:checked + #content4toggle #menu #log{
+    display: none;
 }
 #toggle:checked + #content4toggle #menu #log-text{
     display: none;
-    position: relative;
 }
-#login{
-    font-size: 20px;
-    position: absolute;
-    bottom: 0;
-    margin-bottom: 170px ;
-    margin-left: 90px ;
+
+#log-text {
     color: rgb(255, 255, 255);
-    padding: 10px;
+    font-size: 20px;
+    padding-left: 40px;
+    margin-top: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
-#toggle:checked +#content4toggle #menu #login{
-    display: none;
-    position: relative;
+
+#login{
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    padding-left: 40px;
+    padding-top: 10px;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+}
+#log{
+    background-color: #8a8a8a;
 }
 #toggle:checked + #content4toggle #menu{
     width: 50px;
@@ -191,16 +158,34 @@ label img{
     font: 40px sans-serif;
     
 }
-.adding{
+#adding{
     margin-top: 50px;
 }
-.find{
+#find{
     margin-top: 100px;
 }
-.master-table{
+#master-table{
     margin-top: 20px;
 }
 h3{
     font-size: 40px;
     padding: 20px;
+}
+.master-table-without-find{
+    margin-top: 50px;
+
+}
+.new-table-style{
+    width: 100%;
+    border: 1px solid rgb(0, 0, 0);
+}
+.new-table-style tr:nth-child(even){
+    background-color: #f2f2f2
+}
+.table-style{
+    width: 100%;
+    border: 1px solid rgb(0, 0, 0);
+}
+.table-style tr:nth-child(even){
+    background-color: #f2f2f2
 }

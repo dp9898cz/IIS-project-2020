@@ -32,11 +32,14 @@
             <a href="{{ url_for('dash.ended') }}"><li>Ukončené pobyty</li></a>
         {% endif %}
     {% endif %}
+            <div id="log">
+            <p id = "log-text">Právě přihlášen:</p>
+            <p id = "login">Login</p>
+            </div>
+            <a href="{{ url_for('main.logout') }}" id="logout"><li> Odhlásit se</li></a>
+            <a href="{{ url_for('main.index') }}" id="back"><li> Zpět</li></a>
     </ul>
-    <p id = "log-text">Právě přihlášen:</p>
-    <p id = "login">Login</p>
-    <a href="{{ url_for('main.logout') }}" id="logout">Odhlásit se</a>
-    <a href="{{ url_for('main.index') }}" id="back">Zpět</a>
+    
 </div>
 <div id='content'>
     {% block body %}
