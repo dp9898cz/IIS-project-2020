@@ -149,3 +149,12 @@ def rooms():
                 'openWindow': 1
             }
     return render_template('room-types.html', **context)
+
+@main.route('/rezervace', methods=['GET'])
+def rezervace():
+    context = {
+                'registerForm': RegisterForm(),
+                'loginForm': LoginForm(),
+                'openWindow': 1
+            }
+    return render_template('rezervace.html', **context)

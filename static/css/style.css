@@ -297,7 +297,7 @@ body{
 /* Content of site site */
 
 .content{
-    width: 99%;
+    width: 98%;
     float: left;
     background-color: white;
     margin: 10px;
@@ -305,7 +305,6 @@ body{
     margin-bottom: 0px;
     border-radius: 5px 5px 0px 0px;
     padding-bottom: 20px;
-    
 }
 .content h1{
     font-family: 'Raleway', sans-serif;
@@ -572,3 +571,77 @@ html{
     float: left;
     margin-right: 6px;
 }
+
+/*-------------------------Rezervace------------------------------------*/
+
+.container{
+    width: 500px;
+    background-color: #eeeeee;
+    border: 1px solid #CCC;
+    margin: 0 auto;
+    margin-top: 5px;
+}
+.booking{
+    background-color: #639bcc;
+  }
+  
+.input-group{
+    margin-bottom: 1.5rem;
+  }
+  
+.input-label{
+    display: block;
+    font-size: 1.5rem;
+    text-transform: uppercase;;
+    color: #000000;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+.input-group span{
+    margin-left: 5px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    margin: 0 15px;
+
+}
+.input,
+.options{
+    width: 100%;
+    min-height: 4rem;
+    padding: 1rem;
+    font-weight: bold;
+    color: black;
+    letter-spacing: 2px;
+    font-family: sans-serif;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+}
+  
+.form-btn{
+    margin-top: 2.5rem;
+    cursor: pointer;
+    width: 100%;
+
+  }
+  
+.btn-purple{
+    display: inline-block;
+    padding: 1.3em 1.5em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: #FFFFFF;
+    background-color: #000000;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  
+.btn-purple:hover{
+    background-color: #4095c6;
+  }
+
+  
