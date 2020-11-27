@@ -5,38 +5,56 @@
 {% endblock %}
 
 {% block body %}
-    <h3>Nový pokoj:</h3>
-    <form class="update-form" method="POST" action="{{url_for('dash.room_create')}}">
-        <input type="number" name="number" placeholder="Číslo pokoje">
-        <input type="number" name="beds" placeholder="Počet postelí">
-        <select name="type">
-            <option value="ECON" selected>Economy</option>
-            <option value="BUSS">Business</option>
-            <option value="PREM">Premium</option>
-        </select>
-        <select name="hotel">
-            {% for hotel in hotels %}
-                <option value="{{hotel.id}}">{{hotel.name}}</option>
-            {% endfor %}
-        </select>
-        <input type="number" step="0.01" name="price" placeholder="Cena za noc">
-        <input type="submit" value="Vytvořit">
-    </form>
-    <h3>Vybrat hotel:</h3>
-    <form class="update-form" method="POST" action="{{url_for('dash.room_index')}}">
-        <select name="hotel" onchange="this.form.submit()">
-            {% for hotel in hotels %}
-                <option value="{{hotel.id}}" {% if (hotel.id|int == selected_h|int) %} selected {% endif %}>{{hotel.name}}</option>
-            {% endfor %}
-        </select>
-    </form>
-    <table class="master-table">
+    <div class="adding">
+        <h3>Nový pokoj:</h3>
+        <table class="new-table-style">
+            <tr class="dash-table-head">
+                <th>Číslo pokoje</th>
+                <th>Počet postelí</th>
+                <th>Typ</th>
+                <th>Cena za noc</th>
+                <th>Hotel</th>
+                <th></th>
+            </tr>
+            <tr>
+                <form class="update-form" method="POST" action="{{url_for('dash.room_create')}}">
+                    <th><input type="number" name="number" placeholder="Číslo pokoje"></th>
+                    <th><input type="number" name="beds" placeholder="Počet postelí"></th>
+                    <th><select name="type">
+                        <option value="ECON" selected>Economy</option>
+                        <option value="BUSS">Business</option>
+                        <option value="PREM">Premium</option>
+                    </select></th>
+                    <th><select name="hotel">
+                        {% for hotel in hotels %}
+                            <option value="{{hotel.id}}">{{hotel.name}}</option>
+                        {% endfor %}
+                    </select></th>
+                    <th><input type="number" step="0.01" name="price" placeholder="Cena za noc"></th>
+                    <th><input type="submit" value="Vytvořit"></th>
+                </form>
+            </tr>
+        </table>
+    </div>
+    <div class="find" >
+        <h3>Vybrat hotel:</h3>
+        <form class="update-form" method="POST" action="{{url_for('dash.room_index')}}">
+            <select name="hotel" onchange="this.form.submit()">
+                {% for hotel in hotels %}
+                    <option value="{{hotel.id}}" {% if (hotel.id|int == selected_h|int) %} selected {% endif %}>{{hotel.name}}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+    <table id="master-table" class="table-style">
         <tr class="dash-table-head">
             <th>Číslo pokoje</th>
             <th>Počet postelí</th>
             <th>Typ</th>
             <th>Cena za noc</th>
             <th>Obsazený</th>
+            <th></th>
+            <th></th>
         </tr>
     {% for room in rooms %}
         <tr>
@@ -50,11 +68,11 @@
                     <option value="PREM" {% if room.room_type == "PREM" %} selected {% endif %}>Premium</option>
                 </select></th>
                 <th><input type="number" step="0.01" value="{{room.night_price}}" name="price"></th>
-                <th><input type="checkbox" {% if room in occup_rooms %} checked {% endif %} disabled></th>
+                <th><label class="checkmark"><input type="checkbox" {% if room in occup_rooms %} checked {% endif %} disabled><span class="checkbox-custom rectangular"></span></label></th>
                 <th><input type="submit" value="Update"></th>
             </form>
             <form class="update-form" method="POST" action="{{url_for('dash.room_delete')}}">
-                <th><input type="hidden" value="{{room.id}}" name="id"></th>
+                <input type="hidden" value="{{room.id}}" name="id">
                 <th><input type="submit" value="Delete"></th>
             </form>
         </tr>

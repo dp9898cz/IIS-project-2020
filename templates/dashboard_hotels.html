@@ -27,7 +27,7 @@
     <div class="master-table-without-find">
         <h3>Hotely:</h3>
         <table id="master-table" class="table-style">
-            <tr>
+            <tr class="dash-table-head">
                 <th>Název</th>
                 <th>Adresa</th>
                 <th>Popis</th>
@@ -35,6 +35,8 @@
                 <th>Zaměstnanců</th>
                 <th>Obsazených pokojů</th>
                 <th>Volných pokojů</th>
+                <th></th>
+                <th></th>
             </tr>
         {% for hotel in hotels %}
             <tr>
@@ -47,11 +49,11 @@
                         <th><input type="text" value="{{hotel.employees|length}}" name="employees" disabled></th>
                         <th><input type="text" value="{{occup_rooms | intersect(hotel.rooms)}}" name="taken" disabled></th>
                         <th><input type="text" value="{{hotel.rooms|length - occup_rooms | intersect(hotel.rooms)}}" name="free" disabled></th>
-                        <th><input type="hidden" value="{{hotel.id}}" name="old_id"></th>
+                        <input type="hidden" value="{{hotel.id}}" name="old_id">
                         <th><input type="submit" value="Update"></th>
                     </form>
                     <form class="update-form" method="POST" action="{{url_for('dash.hotel_delete')}}">
-                        <th><input type="hidden" value="{{hotel.id}}" name="id"></th>
+                        <input type="hidden" value="{{hotel.id}}" name="id">
                         <th><input type="submit" value="Delete"></th>
                     </form>
                 </div>
