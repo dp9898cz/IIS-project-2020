@@ -140,6 +140,7 @@ def user_create():
 
 
 
+
 @dash.route('/dashboard/hotels', methods=['GET', 'POST'])
 @login_required
 def hotel_index():
@@ -198,6 +199,13 @@ def hotel_delete():
             print(e)
             flash("Něco se pokazilo. Opakujte akci.")
         return redirect(url_for('dash.hotel_index'))
+
+
+
+
+
+
+
 
 @dash.route('/dashboard/room_index', methods=['POST', 'GET'])
 @login_required
@@ -287,9 +295,16 @@ def room_delete():
             flash("Něco se pokazilo. Opakujte akci.")
         return redirect(url_for('dash.room_index'))
 
-@dash.route('/dashboard/reservations')
+
+
+
+
+
+
+
+@dash.route('/dashboard/reservation')
 @login_required
-def reservation():
+def reservation_index():
     if not current_user.isEmployee:
         return redirect(url_for('main.index'))
     else:

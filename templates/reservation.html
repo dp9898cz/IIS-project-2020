@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Rezervace</h1>
+    <hr>
+    <form method="POST" action="{{ url_for('main.reservation') }}">
+        <!-- login form -->
+        {{ resForm.hidden_tag() }}
+        {% if current_user %}
+            {{ resForm.login(hidden=True, value=current_user.login) }}
+        {% endif %}
+        {% if current_user.name %}
+            {{ resForm.name(hidden=True, value=current_user.name) }}
+        {% else %}
+            <div class="form-field">{{ resForm.name.label }} {{ resForm.name }}
+                {% if resForm.name.errors %}
+                <ul class="errors">
+                    {% for error in resForm.name.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if current_user.surname %}
+            {{ resForm.surname(hidden=True, value=current_user.surname) }}
+        {% else %}
+            <div class="form-field">{{ resForm.surname.label }} {{ resForm.surname }}
+                {% if resForm.surname.errors %}
+                <ul class="errors">
+                    {% for error in resForm.surname.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        {% endif %}
+        
+            
+        {% if current_user.employees %}
+            {{ resForm.email(hidden=True, value=current_user.employees.email) }}
+        {% elif current_user.customers %}
+            {{ resForm.email(hidden=True, value=current_user.customers.email) }}
+        {% else %}
+            <div class="form-field">{{ resForm.email.label }} {{ resForm.email }}
+                {% if resForm.email.errors %}
+                <ul class="errors">
+                    {% for error in resForm.email.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        {% endif %}
+        {{ resForm.date_from }}
+        {{ resForm.date_to }}
+        
+        {{ resForm.submit }}
+    </form>
+</div>
+{% endblock %}

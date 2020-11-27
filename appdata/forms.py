@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import StringField, TextField, SubmitField, PasswordField, HiddenField
-from wtforms.validators import Length, Email, EqualTo, InputRequired, DataRequired
+from wtforms.fields.html5 import DateField
+from wtforms import StringField, TextField, SubmitField, PasswordField, HiddenField, FloatField, IntegerField
+from wtforms.validators import Length, Email, EqualTo, InputRequired, DataRequired, Optional
 from werkzeug.security import check_password_hash
 
 from appdata.models import User, Customer
@@ -55,3 +56,41 @@ class LoginForm(FlaskForm):
         if user:
             if not check_password_hash(user.password, field.data):
                 field.errors.append('Špatné heslo.')
+
+
+
+class ReservationForm(FlaskForm):
+    """Form for main reservation"""
+    login = StringField('Login', [
+        Optional()
+    ])
+    name = StringField( 'Jméno', [
+        InputRequired()
+    ])
+    surname = StringField( 'Příjmení', [
+        InputRequired()
+    ])
+    email = StringField('Email', [
+        Email(message=('Zadejte validní email.')),
+        InputRequired()
+    ])
+    date_from = DateField(
+        'Datum příjezdu', 
+        format='%Y-%m-%d', 
+        validators=[InputRequired()]
+    )
+    date_to = DateField(
+        'Datum odjezdu', 
+        format='%Y-%m-%d', 
+        validators=[InputRequired()]
+    )
+    one_rooms = IntegerField('Počet jednolůžkových místností', [
+        InputRequired()
+    ])
+    two_rooms = IntegerField('Počet dvoulůžkových místností', [
+        InputRequired()
+    ])
+    three_rooms = IntegerField('Počet třílůžkových místností', [
+        InputRequired()
+    ])
+    submit = SubmitField('Vytvořit rezervaci')

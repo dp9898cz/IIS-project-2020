@@ -18,6 +18,8 @@ class User(UserMixin, db.Model):
     login = db.Column(db.String(32), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable = False)
     isEmployee = db.Column(db.Boolean, nullable=False, default=False)
+    name = db.Column(db.String(50), nullable = True)
+    surname = db.Column(db.String(50), nullable = True)
 
     customers = db.relationship('Customer', uselist=False, backref='user', cascade="all, delete-orphan")
     employees = db.relationship('Employee', uselist=False, backref='user', cascade="all, delete-orphan")

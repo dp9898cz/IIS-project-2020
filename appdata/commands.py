@@ -17,31 +17,42 @@ def register_commands(app):
             user=User(
                 login='admin',
                 unhashed_password='admin',
-                isEmployee=True
+                isEmployee=True,
+                name='Admin',
+                surname='Admin'
             ),
             isAdmin=True,
-            isOwner=True
+            isOwner=True,
+            email='test@test.com'
         )
 
         owner_employee = Employee(
             user=User(
                 login='owner',
                 unhashed_password='owner',
-                isEmployee=True
+                isEmployee=True,
+                name='Owner',
+                surname='Owner'
             ),
-            isOwner=True
+            isOwner=True,
+            email='test@test.com'
         )
         manager_employee = Employee(
             user=User(
                 login='manager',
                 unhashed_password='manager',
-                isEmployee=True
-            )
+                isEmployee=True,
+                name='Manager',
+                surname='Manager'
+            ),
+            email='test@test.com'
         )
         test_customer = Customer(
             user=User(
                 login='test',
-                unhashed_password='test'
+                unhashed_password='test',
+                name='Customer',
+                surname='One'
             ),
             email='test@test.com'
         )

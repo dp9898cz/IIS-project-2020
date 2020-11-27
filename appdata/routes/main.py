@@ -4,7 +4,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 
 from appdata.extensions import db
 from appdata.models import User, Customer
-from appdata.forms import RegisterForm, LoginForm
+from appdata.forms import RegisterForm, LoginForm, ReservationForm
 
 main = Blueprint('main', __name__)
 
@@ -149,3 +149,17 @@ def rooms():
                 'openWindow': 1
             }
     return render_template('room-types.html', **context)
+
+@main.route('/reservation', methods=['GET', 'POST'])
+def reservation():
+    if request.method == 'POST':
+        #form
+        print(request.form)
+    else:
+        context = {
+            'registerForm': RegisterForm(),
+            'loginForm': LoginForm(),
+            'resForm' : ReservationForm(),
+            'openWindow': 0
+        }
+    return render_template('reservation.html', **context)
