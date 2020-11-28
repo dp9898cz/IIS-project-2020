@@ -152,9 +152,23 @@ def rooms():
 
 @main.route('/reservation', methods=['GET', 'POST'])
 def reservation():
-    if request.method == 'POST':
-        #form
+    form = ReservationForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        #form validation
         print(request.form)
+        context = {
+            'registerForm': RegisterForm(),
+            'loginForm': LoginForm(),
+            'resForm' : ReservationForm(),
+            'openWindow': 0
+        }
+    elif request.method == 'POST':
+        context = {
+            'registerForm': RegisterForm(),
+            'loginForm': LoginForm(),
+            'resForm' : form,
+            'openWindow': 0
+        }
     else:
         context = {
             'registerForm': RegisterForm(),

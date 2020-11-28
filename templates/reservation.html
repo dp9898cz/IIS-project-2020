@@ -6,6 +6,7 @@
 
 {% block body %}
 <div class="content">
+<div class="container">
     <h1>Rezervace</h1>
     <hr>
     <form method="POST" action="{{ url_for('main.reservation') }}">
@@ -17,7 +18,7 @@
         {% if current_user.name %}
             {{ resForm.name(hidden=True, value=current_user.name) }}
         {% else %}
-            <div class="form-field">{{ resForm.name.label }} {{ resForm.name }}
+            <div class="input-group">{{ resForm.name.label }} {{ resForm.name }}
                 {% if resForm.name.errors %}
                 <ul class="errors">
                     {% for error in resForm.name.errors %}
@@ -31,7 +32,7 @@
         {% if current_user.surname %}
             {{ resForm.surname(hidden=True, value=current_user.surname) }}
         {% else %}
-            <div class="form-field">{{ resForm.surname.label }} {{ resForm.surname }}
+            <div class="input-group">{{ resForm.surname.label }} {{ resForm.surname }}
                 {% if resForm.surname.errors %}
                 <ul class="errors">
                     {% for error in resForm.surname.errors %}
@@ -48,7 +49,7 @@
         {% elif current_user.customers %}
             {{ resForm.email(hidden=True, value=current_user.customers.email) }}
         {% else %}
-            <div class="form-field">{{ resForm.email.label }} {{ resForm.email }}
+            <div class="input-group">{{ resForm.email.label }} {{ resForm.email }}
                 {% if resForm.email.errors %}
                 <ul class="errors">
                     {% for error in resForm.email.errors %}
@@ -58,10 +59,27 @@
                 {% endif %}
             </div>
         {% endif %}
-        {{ resForm.date_from }}
-        {{ resForm.date_to }}
-        
+        <div class="input-group">{{ resForm.date_from.label }} {{ resForm.date_from }}
+            {% if resForm.date_from.errors %}
+                <ul class="errors">
+                    {% for error in resForm.date_from.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="input-group">{{ resForm.date_to.label }} {{ resForm.date_to }}
+            {% if resForm.date_to.errors %}
+                <ul class="errors">
+                    {% for error in resForm.date_to.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        {{resForm.one_rooms}}
         {{ resForm.submit }}
     </form>
+</div>
 </div>
 {% endblock %}

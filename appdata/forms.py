@@ -1,6 +1,8 @@
+import datetime
+
 from flask_wtf import FlaskForm, RecaptchaField
 from wtforms.fields.html5 import DateField
-from wtforms import StringField, TextField, SubmitField, PasswordField, HiddenField, FloatField, IntegerField
+from wtforms import StringField, TextField, SubmitField, PasswordField, HiddenField, FloatField, IntegerField, SelectField
 from wtforms.validators import Length, Email, EqualTo, InputRequired, DataRequired, Optional
 from werkzeug.security import check_password_hash
 
@@ -58,7 +60,6 @@ class LoginForm(FlaskForm):
                 field.errors.append('Špatné heslo.')
 
 
-
 class ReservationForm(FlaskForm):
     """Form for main reservation"""
     login = StringField('Login', [
@@ -84,13 +85,37 @@ class ReservationForm(FlaskForm):
         format='%Y-%m-%d', 
         validators=[InputRequired()]
     )
-    one_rooms = IntegerField('Počet jednolůžkových místností', [
-        InputRequired()
-    ])
-    two_rooms = IntegerField('Počet dvoulůžkových místností', [
-        InputRequired()
-    ])
-    three_rooms = IntegerField('Počet třílůžkových místností', [
-        InputRequired()
-    ])
+    one_rooms = SelectField('Jednolůžkové',
+        choices=[0,1,2,3,4],
+        validators=[
+            InputRequired()
+        ]
+    )
+    two_rooms = SelectField('Dvoulůžkové',
+        choices=[0,1,2,3,4],
+        validators=[
+            InputRequired()
+        ]
+    )
+    three_rooms = SelectField('Třílůžkové',
+        choices=[0,1,2,3,4],
+        validators=[
+            InputRequired()
+        ]
+    )
     submit = SubmitField('Vytvořit rezervaci')
+
+    def validate_date_from(self, field):
+        now = datetime.date.today()
+        date_from = field.data
+        if (date_from < now):
+            field.errors.append('Pobyt nesmí začínat v minulosti.')
+    
+    def validate_date_to(self, field):
+        now = datetime.date.today()
+        date_from = field.data
+        if (date_from < now):
+            field.errors.append('Pobyt nesmí končit v minulosti.')
+        delta = field.data - self.date_from.data
+        if (delta.days > 30):
+            field.errors.append('Pobyt lze zarezervovat na maximálně 30 dní.')
