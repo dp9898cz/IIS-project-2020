@@ -311,7 +311,7 @@ body{
     border-right: rgba(255, 255, 255, 0);
     border-top: rgba(255, 255, 255, 0);
     font-weight: 1;
-    font-size: 75px;
+    font-size: 50px;
     text-transform: uppercase;
     text-align: center;
     color: #000;
@@ -319,7 +319,7 @@ body{
     padding-bottom:20px;
     margin-left: 20%;
     margin-right: 20%;
-    
+    margin-bottom: 20px;
 }
 #textArea{
     font-size: 25px;
@@ -608,16 +608,45 @@ html{
     margin: 0 auto;
     margin-top: 5px;
 }
-.booking{
-    background-color: #639bcc;
-  }
+
+.container input{
+    width: 100%;
+    height: 40px;
+    background: white;
+    border-radius: 4px;
+    border: 1px solid silver;
+    margin: 10px 0 18px 0;
+    padding: 0 10px;
+}
+
+.container ul{
+    color: white;
+    background: #c51244 !important;
+    padding: 10px !important;
+    border-radius: 0 !important;
+    position: relative; 
+    display: inline-block !important;
+    box-shadow: 1px 1px 1px #aaaaaa;
+    margin-top: -7px;
+    margin-bottom: 10px;
+}
+
+.container ul:before{
+    content: ''; 
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #c51244;
+    position: absolute; 
+    top: -10px;
+}
   
 .input-group{
     margin-bottom: 1.5rem;
   }
-  
-.input-label,
-.forma > label {
+
+.forma{
     display: block;
     font-size: 1.5rem;
     text-transform: uppercase;;
@@ -633,45 +662,8 @@ html{
     margin: 0 15px;
 
 }
-.input,
-.forma > select,
-.forma > input {
-    width: 100%;
-    min-height: 4rem;
-    padding: 1rem;
-    font-weight: bold;
-    color: black;
-    letter-spacing: 2px;
-    font-family: sans-serif;
-    border: 1px solid #CCC;
-    border-radius: 1em;
-}
-  
-.form-btn{
-    margin-top: 2.5rem;
-    cursor: pointer;
-    width: 100%;
 
-  }
-  
-.btn-purple{
-    display: inline-block;
-    padding: 1.3em 1.5em;
-    margin: 0 0.3em 0.3em 0;
-    border-radius: 2em;
-    box-sizing: border-box;
-    text-decoration: none;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    color: #FFFFFF;
-    background-color: #000000;
-    text-align: center;
-    transition: all 0.2s;
-  }
-  
-.btn-purple:hover{
-    background-color: #4095c6;
-  }
+
 /*-------------------------Profile------------------------------------*/
 .table-div{
     overflow: auto;
