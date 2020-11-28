@@ -108,8 +108,8 @@ def register_commands(app):
         res = Reservation(
             visit = Visit(
                 customer = test_customer,
-                date_from = datetime.datetime.now(),
-                date_to = datetime.datetime.now(),
+                date_from = datetime.datetime(2020, 11, 27).date(),
+                date_to = datetime.datetime(2020, 11, 30).date(),
                 price = 6548,
                 visit_type = 'RES',
                 rooms = test_hotel.rooms
@@ -119,8 +119,8 @@ def register_commands(app):
         on = Ongoing(
             visit = Visit(
                 customer = test_customer,
-                date_from = datetime.datetime.now(),
-                date_to = datetime.datetime.now(),
+                date_from = datetime.datetime(2020, 11, 29).date(),
+                date_to = datetime.datetime(2020, 12, 12).date(),
                 price = 888,
                 visit_type = 'NOW',
                 rooms = [
@@ -133,8 +133,8 @@ def register_commands(app):
         past = Past(
             visit = Visit(
                 customer = test_customer,
-                date_from = datetime.datetime.now(),
-                date_to = datetime.datetime.now(),
+                date_from = datetime.datetime(2020, 11, 20).date(),
+                date_to = datetime.datetime(2020, 11, 25).date(),
                 price = 68448.888,
                 visit_type = 'PAS',
                 rooms = [

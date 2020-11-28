@@ -6,7 +6,7 @@ from wtforms import StringField, TextField, SubmitField, PasswordField, HiddenFi
 from wtforms.validators import Length, Email, EqualTo, InputRequired, DataRequired, Optional
 from werkzeug.security import check_password_hash
 
-from appdata.models import User, Customer
+from appdata.models import User, Customer, Room, Visit, Reservation, Ongoing, Past
 
 class RegisterForm(FlaskForm):
     """Register form."""
@@ -61,6 +61,9 @@ class LoginForm(FlaskForm):
 
 
 class ReservationForm(FlaskForm):
+    hotel_id = 0
+    avaiable_rooms = []
+
     """Form for main reservation"""
     login = StringField('Login', [
         Optional()
@@ -85,20 +88,8 @@ class ReservationForm(FlaskForm):
         format='%Y-%m-%d', 
         validators=[InputRequired()]
     )
-    one_rooms = SelectField('Jednolůžkové',
-        choices=[0,1,2,3,4],
-        validators=[
-            InputRequired()
-        ]
-    )
-    two_rooms = SelectField('Dvoulůžkové',
-        choices=[0,1,2,3,4],
-        validators=[
-            InputRequired()
-        ]
-    )
-    three_rooms = SelectField('Třílůžkové',
-        choices=[0,1,2,3,4],
+    one_rooms = SelectField('Počet pokojů',
+        choices=[1,2,3,4],
         validators=[
             InputRequired()
         ]
@@ -106,6 +97,7 @@ class ReservationForm(FlaskForm):
     submit = SubmitField('Vytvořit rezervaci')
 
     def validate_date_from(self, field):
+        print(self.hotel_id)
         now = datetime.date.today()
         date_from = field.data
         if (date_from < now):
@@ -118,4 +110,31 @@ class ReservationForm(FlaskForm):
             field.errors.append('Pobyt nesmí končit v minulosti.')
         delta = field.data - self.date_from.data
         if (delta.days > 30):
-            field.errors.append('Pobyt lze zarezervovat na maximálně 30 dní.')
+            field.errors.append('Pobyt lze zarezervovat na maximálně 30 nocí.')
+        if (field.data == self.date_from.data):
+            field.errors.append('Pobyt lze zarezervovat na minimálně 1 noc.')
+
+    def validate_one_rooms(self, field):
+        f_from = self.date_from.data
+        f_to = self.date_to.data
+        
+        # get all avaiable rooms
+        rooms = Room.query.filter_by(hotel_id=self.hotel_id).all()
+        
+        # get all forbidden rooms
+        forbidden_visits = Visit\
+                .query\
+                .filter(Visit.visit_type != 'PAST')\
+                .filter(((f_from >= Visit.date_from) & (f_from < Visit.date_to)) \
+                    | ((f_to > Visit.date_from) & (f_to <= Visit.date_to)))\
+                .all()
+        forbidden_rooms = []
+        for visit in forbidden_visits:
+            forbidden_rooms.extend(visit.rooms)
+        forbidden_rooms = list(set(forbidden_rooms))
+
+        avaiable_rooms = list(set(rooms) - set(forbidden_rooms))
+        if not avaiable_rooms or len(avaiable_rooms) < int(field.data):
+            field.errors.append('Pro zvolené datum nejsou volné pokoje. Zbývá ' + str(len(avaiable_rooms)) + ' pokojů.')
+        else:
+            self.avaiable_rooms = avaiable_rooms

@@ -3,7 +3,7 @@ from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 
 from appdata.extensions import db
-from appdata.models import User, Customer
+from appdata.models import User, Customer, Hotel
 from appdata.forms import RegisterForm, LoginForm, ReservationForm
 
 main = Blueprint('main', __name__)
@@ -127,7 +127,7 @@ def sport():
     context = {
                 'registerForm': RegisterForm(),
                 'loginForm': LoginForm(),
-                'openWindow': 1
+                'openWindow': 0
             }
     return render_template('sport.html', **context)
 
@@ -137,43 +137,38 @@ def personal():
     context = {
                 'registerForm': RegisterForm(),
                 'loginForm': LoginForm(),
-                'openWindow': 1
+                'openWindow': 0
             }
     return render_template('personal.html', **context)
 
-@main.route('/rooms', methods=['GET'])
-def rooms():
+@main.route('/<id>', methods=['GET'])
+def hotel_overview(id):
     context = {
                 'registerForm': RegisterForm(),
                 'loginForm': LoginForm(),
-                'openWindow': 1
+                'openWindow': 0,
+                'hotel': Hotel.query.filter_by(id=id).first()
             }
     return render_template('room-types.html', **context)
 
-@main.route('/reservation', methods=['GET', 'POST'])
-def reservation():
+@main.route('/<id>/reservation', methods=['GET', 'POST'])
+def reservation(id):
     form = ReservationForm()
+    form.hotel_id = id
+    context = {
+        'hotel': Hotel.query.filter_by(id=id).first()
+    }
     if request.method == 'POST' and form.validate_on_submit():
-        #form validation
+        #form validation succsess
         print(request.form)
-        context = {
-            'registerForm': RegisterForm(),
-            'loginForm': LoginForm(),
-            'resForm' : ReservationForm(),
-            'openWindow': 0
-        }
     elif request.method == 'POST':
-        context = {
-            'registerForm': RegisterForm(),
-            'loginForm': LoginForm(),
-            'resForm' : form,
-            'openWindow': 0
-        }
+        #form validation failed
+        context['resForm'] = form
     else:
-        context = {
-            'registerForm': RegisterForm(),
-            'loginForm': LoginForm(),
-            'resForm' : ReservationForm(),
-            'openWindow': 0
-        }
+        #get request
+        context['resForm'] = ReservationForm()
+
+    if current_user == None or current_user.id == None:
+        context['registerForm'] = RegisterForm()
+        context['loginForm'] = LoginForm()
     return render_template('reservation.html', **context)

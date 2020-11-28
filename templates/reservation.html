@@ -7,9 +7,9 @@
 {% block body %}
 <div class="content">
 <div class="container">
-    <h1>Rezervace</h1>
+    <h1>{{hotel.name if hotel.name else ''}}{{' - ' if hotel.name else ''}}Rezervace</h1>
     <hr>
-    <form method="POST" action="{{ url_for('main.reservation') }}">
+    <form method="POST" action="{{ url_for('main.reservation', id=hotel.id) }}">
         <!-- login form -->
         {{ resForm.hidden_tag() }}
         {% if current_user %}
@@ -77,7 +77,15 @@
                 </ul>
             {% endif %}
         </div>
-        {{resForm.one_rooms}}
+        <div class="input-group">{{ resForm.one_rooms.label }} {{ resForm.one_rooms }}
+            {% if resForm.one_rooms.errors %}
+                <ul class="errors">
+                    {% for error in resForm.one_rooms.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
         {{ resForm.submit }}
     </form>
 </div>
