@@ -158,3 +158,11 @@ def rezervace():
                 'openWindow': 1
             }
     return render_template('rezervace.html', **context)
+@main.route('/profile', methods=['GET'])
+def profile():
+    context = {
+                'registerForm': RegisterForm(),
+                'loginForm': LoginForm(),
+                'openWindow': 1
+            }
+    return render_template('profile.html', **context)
