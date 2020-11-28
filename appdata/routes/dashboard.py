@@ -1,7 +1,7 @@
 from flask import Blueprint, flash, render_template, redirect, url_for, request, make_response
 from flask_login import login_required, current_user
 
-from appdata.models import User, Employee, Customer, Hotel, Room, Visit, Ongoing, room_visit
+from appdata.models import User, Employee, Customer, Hotel, Room, Past, Visit, Ongoing, room_visit, Reservation
 from appdata.extensions import csrf, db
 
 dash = Blueprint('dash', __name__)
@@ -296,33 +296,248 @@ def room_delete():
         return redirect(url_for('dash.room_index'))
 
 
-
-
-
-
-
-
-@dash.route('/dashboard/reservation')
+@dash.route('/dashboard/reservation', methods=['GET', 'POST'])
 @login_required
 def reservation_index():
     if not current_user.isEmployee:
         return redirect(url_for('main.index'))
+    elif request.method == 'POST':
+        #handle search request -> set cookie and redirect to the main reservation page
+        reservation_filter = request.form['reservation_filter']
+        if (reservation_filter):
+            reservations = Reservation.query.outerjoin(Visit).filter(Visit.customer_id.contains(reservation_filter)).all()
+        else:
+            reservations = Reservation.query.all()
+        context = {
+            'reservations': reservations
+        }
+        resp = make_response(render_template('dashboard_reservation.html', **context))
+        resp.set_cookie('filter', reservation_filter)
+        resp.headers['location'] = url_for('dash.reservation_index') 
+        return resp, 302
     else:
-        return render_template('dashboard_reservation.html')
+        # main user page (apply search results filter if any)
+        reservation_filter = request.cookies.get('filter')
+        if (reservation_filter):
+            reservations = Reservation.query.outerjoin(Visit).filter(Visit.customer_id.contains(reservation_filter)).all()
+        else:
+            reservations = Reservation.query.all()
+        context = {
+            'reservations' : reservations,
+            'filter' : reservation_filter
+        }
+        return render_template('dashboard_reservation.html', **context)
 
-
-@dash.route('/dashboard/running')
+@dash.route('/dashboard/reservation/update', methods=['POST'])
 @login_required
-def running():
+def reservation_update():
+    print(request.form)
     if not current_user.isEmployee:
         return redirect(url_for('main.index'))
     else:
-        return render_template('dashboard_running.html')
+        obj = Reservation.query.outerjoin(Visit).filter(Visit.id == request.form.get('id')).first()
+        try:
+            obj.is_paid_princ = 'on' == request.form.get('isPaidPrinc')
+            obj.is_paid_visit = 'on' == request.form.get('isPaid')
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            flash("Něco se pokazilo. Opakujte akci.")
+        return redirect(url_for('dash.reservation_index'))
 
-@dash.route('/dashboard/ended')
+
+
+@dash.route('/dashboard/reservation/checkin', methods=['POST'])
 @login_required
-def ended():
+def reservation_checkin():
+    print(request.form)
     if not current_user.isEmployee:
         return redirect(url_for('main.index'))
     else:
-        return render_template('dashboard_ended.html')
+        try:
+            visit = Visit.query.filter_by(id=request.form.get('id')).first()
+            to_del = visit.reservation
+            to_add = Ongoing(
+                visit = visit,
+                is_paid_visit = to_del.is_paid_visit,
+                key_customer = True
+            )
+            visit.visit_type = 'NOW'
+            to_del.visit_id = 0
+            db.session.add(to_add)
+            db.session.commit()
+            db.session.delete(to_del)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            flash("Něco se pokazilo. Opakujte akci.")
+        return redirect(url_for('dash.reservation_index'))
+
+@dash.route('/dashboard/reservation/delete', methods=['POST'])
+@login_required
+def reservation_delete():
+    print(request.form)
+    if not current_user.isEmployee:
+        return redirect(url_for('main.index'))
+    else:
+        try:
+            visit = Visit.query.filter_by(id=request.form.get('id')).first()
+            db.session.delete(visit)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            flash("Něco se pokazilo. Opakujte akci.")
+        return redirect(url_for('dash.reservation_index'))
+
+
+
+
+
+
+
+
+
+@dash.route('/dashboard/running', methods=['GET', 'POST'])
+@login_required
+def running_index():
+    if not current_user.isEmployee:
+        return redirect(url_for('main.index'))
+    elif request.method == 'POST':
+        #handle search request -> set cookie and redirect to the main reservation page
+        reservation_filter = request.form['reservation_filter']
+        if (reservation_filter):
+            reservations = Ongoing.query.outerjoin(Visit).filter(Visit.customer_id.contains(reservation_filter)).all()
+        else:
+            reservations = Ongoing.query.all()
+        context = {
+            'reservations': reservations
+        }
+        resp = make_response(render_template('dashboard_running.html', **context))
+        resp.set_cookie('filter', reservation_filter)
+        resp.headers['location'] = url_for('dash.running_index') 
+        return resp, 302
+    else:
+        # main user page (apply search results filter if any)
+        reservation_filter = request.cookies.get('filter')
+        if (reservation_filter):
+            reservations = Ongoing.query.outerjoin(Visit).filter(Visit.customer_id.contains(reservation_filter)).all()
+        else:
+            reservations = Ongoing.query.all()
+        context = {
+            'reservations' : reservations,
+            'filter' : reservation_filter
+        }
+        return render_template('dashboard_running.html', **context)
+
+@dash.route('/dashboard/running/delete', methods=['POST'])
+@login_required
+def running_delete():
+    print(request.form)
+    if not current_user.isEmployee:
+        return redirect(url_for('main.index'))
+    else:
+        try:
+            visit = Visit.query.filter_by(id=request.form.get('id')).first()
+            db.session.delete(visit)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            flash("Něco se pokazilo. Opakujte akci.")
+        return redirect(url_for('dash.running_index'))
+
+@dash.route('/dashboard/running/update', methods=['POST'])
+@login_required
+def running_update():
+    print(request.form)
+    if not current_user.isEmployee:
+        return redirect(url_for('main.index'))
+    else:
+        obj = Ongoing.query.outerjoin(Visit).filter(Visit.id == request.form.get('id')).first()
+        try:
+            obj.key_customer = 'on' == request.form.get('key')
+            obj.is_paid_visit = 'on' == request.form.get('isPaid')
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            flash("Něco se pokazilo. Opakujte akci.")
+        return redirect(url_for('dash.running_index'))
+
+@dash.route('/dashboard/reservation/checkout', methods=['POST'])
+@login_required
+def running_checkout():
+    print(request.form)
+    if not current_user.isEmployee:
+        return redirect(url_for('main.index'))
+    else:
+        try:
+            visit = Visit.query.filter_by(id=request.form.get('id')).first()
+            to_del = visit.ongoing
+            to_add = Past(
+                visit = visit
+            )
+            visit.visit_type = 'PAS'
+            to_del.visit_id = 0
+            db.session.add(to_add)
+            db.session.commit()
+            db.session.delete(to_del)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            flash("Něco se pokazilo. Opakujte akci.")
+        return redirect(url_for('dash.running_index'))
+
+
+
+
+
+
+
+
+
+@dash.route('/dashboard/ended', methods=['GET', 'POST'])
+@login_required
+def ended_index():
+    if not current_user.isEmployee:
+        return redirect(url_for('main.index'))
+    elif request.method == 'POST':
+        #handle search request -> set cookie and redirect to the main reservation page
+        reservation_filter = request.form['reservation_filter']
+        if (reservation_filter):
+            reservations = Past.query.outerjoin(Visit).filter(Visit.customer_id.contains(reservation_filter)).all()
+        else:
+            reservations = Past.query.all()
+        context = {
+            'reservations': reservations
+        }
+        resp = make_response(render_template('dashboard_ended.html', **context))
+        resp.set_cookie('filter', reservation_filter)
+        resp.headers['location'] = url_for('dash.ended_index') 
+        return resp, 302
+    else:
+        # main user page (apply search results filter if any)
+        reservation_filter = request.cookies.get('filter')
+        if (reservation_filter):
+            reservations = Past.query.outerjoin(Visit).filter(Visit.customer_id.contains(reservation_filter)).all()
+        else:
+            reservations = Past.query.all()
+        context = {
+            'reservations' : reservations,
+            'filter' : reservation_filter
+        }
+        return render_template('dashboard_ended.html', **context)
+
+@dash.route('/dashboard/ended/delete', methods=['POST'])
+@login_required
+def ended_delete():
+    print(request.form)
+    if not current_user.isEmployee:
+        return redirect(url_for('main.index'))
+    else:
+        try:
+            visit = Visit.query.filter_by(id=request.form.get('id')).first()
+            db.session.delete(visit)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            flash("Něco se pokazilo. Opakujte akci.")
+        return redirect(url_for('dash.ended_index'))

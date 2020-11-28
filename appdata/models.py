@@ -84,9 +84,9 @@ class Visit(db.Model):
     price = db.Column(db.Float)
     visit_type = db.Column(db.Enum(VisitType))
 
-    reservation = db.relationship('Reservation', uselist=False, backref='visit')
-    ongoing = db.relationship('Ongoing', uselist=False, backref='visit')
-    past = db.relationship('Past', uselist=False, backref='visit')
+    reservation = db.relationship('Reservation', uselist=False, backref='visit', cascade="all, delete-orphan")
+    ongoing = db.relationship('Ongoing', uselist=False, backref='visit', cascade="all, delete-orphan")
+    past = db.relationship('Past', uselist=False, backref='visit', cascade="all, delete-orphan")
 
 
 class Reservation(db.Model):

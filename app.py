@@ -17,6 +17,7 @@ def create_app():
 
     app.register_blueprint(main)
     app.register_blueprint(dash)
+    csrf.exempt(dash)
 
     register_commands(app)
 
