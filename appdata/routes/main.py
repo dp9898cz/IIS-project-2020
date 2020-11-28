@@ -156,7 +156,8 @@ def reservation(id):
     form = ReservationForm()
     form.hotel_id = id
     context = {
-        'hotel': Hotel.query.filter_by(id=id).first()
+        'hotel': Hotel.query.filter_by(id=id).first(),
+        'resForm': form
     }
     if request.method == 'POST' and form.validate_on_submit():
         #form validation succsess
@@ -166,9 +167,9 @@ def reservation(id):
         context['resForm'] = form
     else:
         #get request
-        context['resForm'] = ReservationForm()
+        context['resForm'] = form
 
-    if current_user == None or current_user.id == None:
+    if not current_user.is_authenticated:
         context['registerForm'] = RegisterForm()
         context['loginForm'] = LoginForm()
     return render_template('reservation.html', **context)

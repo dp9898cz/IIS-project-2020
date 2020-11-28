@@ -610,14 +610,15 @@ html{
     margin-bottom: 1.5rem;
   }
   
-.input-label{
+.input-label,
+.forma > label {
     display: block;
     font-size: 1.5rem;
     text-transform: uppercase;;
     color: #000000;
     font-weight: bold;
     margin-bottom: 1rem;
-  }
+}
 
 .input-group span{
     margin-left: 5px;
@@ -627,7 +628,8 @@ html{
 
 }
 .input,
-.options{
+.forma > select,
+.forma > input {
     width: 100%;
     min-height: 4rem;
     padding: 1rem;

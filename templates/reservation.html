@@ -9,7 +9,7 @@
 <div class="container">
     <h1>{{hotel.name if hotel.name else ''}}{{' - ' if hotel.name else ''}}Rezervace</h1>
     <hr>
-    <form method="POST" action="{{ url_for('main.reservation', id=hotel.id) }}">
+    <form class="forma" method="POST" action="{{ url_for('main.reservation', id=hotel.id) }}">
         <!-- login form -->
         {{ resForm.hidden_tag() }}
         {% if current_user %}
