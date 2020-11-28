@@ -140,6 +140,14 @@ def personal():
                 'openWindow': 0
             }
     return render_template('personal.html', **context)
+@main.route('/profile', methods=['GET'])
+def profile():
+    context = {
+                'registerForm': RegisterForm(),
+                'loginForm': LoginForm(),
+                'openWindow': 0
+            }
+    return render_template('profile.html', **context)
 
 @main.route('/<id>', methods=['GET'])
 def hotel_overview(id):
