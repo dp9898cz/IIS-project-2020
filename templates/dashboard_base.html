@@ -28,8 +28,8 @@
         {% endif %}
         {% if current_user.employees.isManager %}
             <a href="{{ url_for('dash.reservation_index') }}"><li>Rezervace</li></a>
-            <a href="{{ url_for('dash.running') }}"><li>Probíhající pobyty</li></a>
-            <a href="{{ url_for('dash.ended') }}"><li>Ukončené pobyty</li></a>
+            <a href="{{ url_for('dash.running_index') }}"><li>Probíhající pobyty</li></a>
+            <a href="{{ url_for('dash.ended_index') }}"><li>Ukončené pobyty</li></a>
         {% endif %}
     {% endif %}
             <div id="log">
