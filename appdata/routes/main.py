@@ -3,8 +3,8 @@ from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 
 from appdata.extensions import db
-from appdata.models import User, Customer
-from appdata.forms import RegisterForm, LoginForm
+from appdata.models import User, Customer, Hotel
+from appdata.forms import RegisterForm, LoginForm, ReservationForm
 
 main = Blueprint('main', __name__)
 
@@ -127,7 +127,7 @@ def sport():
     context = {
                 'registerForm': RegisterForm(),
                 'loginForm': LoginForm(),
-                'openWindow': 1
+                'openWindow': 0
             }
     return render_template('sport.html', **context)
 
@@ -137,32 +137,38 @@ def personal():
     context = {
                 'registerForm': RegisterForm(),
                 'loginForm': LoginForm(),
-                'openWindow': 1
+                'openWindow': 0
             }
     return render_template('personal.html', **context)
 
-@main.route('/rooms', methods=['GET'])
-def rooms():
+@main.route('/<id>', methods=['GET'])
+def hotel_overview(id):
     context = {
                 'registerForm': RegisterForm(),
                 'loginForm': LoginForm(),
-                'openWindow': 1
+                'openWindow': 0,
+                'hotel': Hotel.query.filter_by(id=id).first()
             }
     return render_template('room-types.html', **context)
 
-@main.route('/rezervace', methods=['GET'])
-def rezervace():
+@main.route('/<id>/reservation', methods=['GET', 'POST'])
+def reservation(id):
+    form = ReservationForm()
+    form.hotel_id = id
     context = {
-                'registerForm': RegisterForm(),
-                'loginForm': LoginForm(),
-                'openWindow': 1
-            }
-    return render_template('rezervace.html', **context)
-@main.route('/profile', methods=['GET'])
-def profile():
-    context = {
-                'registerForm': RegisterForm(),
-                'loginForm': LoginForm(),
-                'openWindow': 1
-            }
-    return render_template('profile.html', **context)
+        'hotel': Hotel.query.filter_by(id=id).first()
+    }
+    if request.method == 'POST' and form.validate_on_submit():
+        #form validation succsess
+        print(request.form)
+    elif request.method == 'POST':
+        #form validation failed
+        context['resForm'] = form
+    else:
+        #get request
+        context['resForm'] = ReservationForm()
+
+    if current_user == None or current_user.id == None:
+        context['registerForm'] = RegisterForm()
+        context['loginForm'] = LoginForm()
+    return render_template('reservation.html', **context)

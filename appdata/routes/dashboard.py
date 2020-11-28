@@ -140,6 +140,7 @@ def user_create():
 
 
 
+
 @dash.route('/dashboard/hotels', methods=['GET', 'POST'])
 @login_required
 def hotel_index():
@@ -199,6 +200,13 @@ def hotel_delete():
             flash("Něco se pokazilo. Opakujte akci.")
         return redirect(url_for('dash.hotel_index'))
 
+
+
+
+
+
+
+
 @dash.route('/dashboard/room_index', methods=['POST', 'GET'])
 @login_required
 def room_index():
@@ -229,7 +237,6 @@ def room_index():
                 'rooms': Room.query.filter_by(hotel_id=selected_hotel).order_by(Room.number.desc()).all(),
                 'occup_rooms': Room.query.outerjoin(Visit, Room.visits).filter(Visit.visit_type=='NOW').all()
             }
-            print(selected_hotel)
             return render_template('dashboard_rooms.html', **context)
 
 @dash.route('/dashboard/room_create', methods=['POST'])
@@ -257,9 +264,20 @@ def room_create():
 @dash.route('/dashboard/room_update', methods=['POST'])
 @login_required
 def room_update():
+    print(request.form)
     if not current_user.isEmployee:
         return redirect(url_for('main.index'))
     else:
+        obj = Room.query.filter_by(id=request.form.get('old_id')).first()
+        try:
+            obj.number = request.form.get('number')
+            obj.number_of_beds = request.form.get('beds')
+            obj.night_price = request.form.get('price')
+            obj.room_type = request.form.get('type')
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            flash("Něco se pokazilo. Opakujte akci.")
         return redirect(url_for('dash.room_index'))
 
 @dash.route('/dashboard/room_delete', methods=['POST'])
@@ -268,11 +286,25 @@ def room_delete():
     if not current_user.isEmployee:
         return redirect(url_for('main.index'))
     else:
+        try:
+            room = Room.query.filter_by(id=request.form.get('id')).first()
+            db.session.delete(room)
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            flash("Něco se pokazilo. Opakujte akci.")
         return redirect(url_for('dash.room_index'))
 
-@dash.route('/dashboard/reservations')
+
+
+
+
+
+
+
+@dash.route('/dashboard/reservation')
 @login_required
-def reservation():
+def reservation_index():
     if not current_user.isEmployee:
         return redirect(url_for('main.index'))
     else:

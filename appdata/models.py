@@ -18,6 +18,8 @@ class User(UserMixin, db.Model):
     login = db.Column(db.String(32), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable = False)
     isEmployee = db.Column(db.Boolean, nullable=False, default=False)
+    name = db.Column(db.String(50), nullable = True)
+    surname = db.Column(db.String(50), nullable = True)
 
     customers = db.relationship('Customer', uselist=False, backref='user', cascade="all, delete-orphan")
     employees = db.relationship('Employee', uselist=False, backref='user', cascade="all, delete-orphan")
@@ -77,8 +79,8 @@ class Room(db.Model):
 class Visit(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     customer_id = db.Column(db.String(32), db.ForeignKey('customer.user_id'))
-    date_from = db.Column(db.DateTime, nullable=False)
-    date_to = db.Column(db.DateTime, nullable=False)
+    date_from = db.Column(db.Date, nullable=False)
+    date_to = db.Column(db.Date, nullable=False)
     price = db.Column(db.Float)
     visit_type = db.Column(db.Enum(VisitType))
 

@@ -21,7 +21,7 @@
             <input type="checkbox" id="toggle"/>
         <div class="menu">
             <nav class="main-menu">
-                    <a href="{{ url_for('main.index') }}" class="main-icon">Rentel</a>
+                    <a href="{{ url_for('main.reservation', id=1) }}" class="main-icon">Rentel</a>
                     
                     <ul>
                 
@@ -160,7 +160,6 @@
 
     {% else %}
     <form method="POST" action="{{ url_for('main.logout') }}">
-        {{ registerForm.hidden_tag() }}
         <input type="submit" value="Logout">
     </form>
     {% endif %}

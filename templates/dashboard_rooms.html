@@ -63,9 +63,9 @@
                 <th><input type="number" value="{{room.number}}" name="number"></th>
                 <th><input type="number" value="{{room.number_of_beds}}" name="beds"></th>
                 <th><select name="type">
-                    <option value="ECON" {% if room.room_type == "ECON" %} selected {% endif %}>Economy</option>
-                    <option value="BUSS" {% if room.room_type == "BUSS" %} selected {% endif %}>Business</option>
-                    <option value="PREM" {% if room.room_type == "PREM" %} selected {% endif %}>Premium</option>
+                    <option value="ECON" {% if (room.room_type|string() == 'RoomType.ECON') %} selected {% endif %}>Economy</option>
+                    <option value="BUSS" {% if (room.room_type|string() == 'RoomType.BUSS') %} selected {% endif %}>Business</option>
+                    <option value="PREM" {% if (room.room_type|string() == 'RoomType.PREM') %} selected {% endif %}>Premium</option>
                 </select></th>
                 <th><input type="number" step="0.01" value="{{room.night_price}}" name="price"></th>
                 <th><label class="checkmark"><input type="checkbox" {% if room in occup_rooms %} checked {% endif %} disabled><span class="checkbox-custom rectangular"></span></label></th>

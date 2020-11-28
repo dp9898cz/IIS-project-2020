@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="content">
+<div class="container">
+    <h1>{{hotel.name if hotel.name else ''}}{{' - ' if hotel.name else ''}}Rezervace</h1>
+    <hr>
+    <form method="POST" action="{{ url_for('main.reservation', id=hotel.id) }}">
+        <!-- login form -->
+        {{ resForm.hidden_tag() }}
+        {% if current_user %}
+            {{ resForm.login(hidden=True, value=current_user.login) }}
+        {% endif %}
+        {% if current_user.name %}
+            {{ resForm.name(hidden=True, value=current_user.name) }}
+        {% else %}
+            <div class="input-group">{{ resForm.name.label }} {{ resForm.name }}
+                {% if resForm.name.errors %}
+                <ul class="errors">
+                    {% for error in resForm.name.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if current_user.surname %}
+            {{ resForm.surname(hidden=True, value=current_user.surname) }}
+        {% else %}
+            <div class="input-group">{{ resForm.surname.label }} {{ resForm.surname }}
+                {% if resForm.surname.errors %}
+                <ul class="errors">
+                    {% for error in resForm.surname.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        {% endif %}
+        
+            
+        {% if current_user.employees %}
+            {{ resForm.email(hidden=True, value=current_user.employees.email) }}
+        {% elif current_user.customers %}
+            {{ resForm.email(hidden=True, value=current_user.customers.email) }}
+        {% else %}
+            <div class="input-group">{{ resForm.email.label }} {{ resForm.email }}
+                {% if resForm.email.errors %}
+                <ul class="errors">
+                    {% for error in resForm.email.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="input-group">{{ resForm.date_from.label }} {{ resForm.date_from }}
+            {% if resForm.date_from.errors %}
+                <ul class="errors">
+                    {% for error in resForm.date_from.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="input-group">{{ resForm.date_to.label }} {{ resForm.date_to }}
+            {% if resForm.date_to.errors %}
+                <ul class="errors">
+                    {% for error in resForm.date_to.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="input-group">{{ resForm.one_rooms.label }} {{ resForm.one_rooms }}
+            {% if resForm.one_rooms.errors %}
+                <ul class="errors">
+                    {% for error in resForm.one_rooms.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        {{ resForm.submit }}
+    </form>
+</div>
+</div>
+{% endblock %}

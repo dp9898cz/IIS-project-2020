@@ -27,14 +27,14 @@
             <a href="{{ url_for('dash.room_index') }}"><li>Správa pokojů</li></a>
         {% endif %}
         {% if current_user.employees.isManager %}
-            <a href="{{ url_for('dash.reservation') }}"><li>Rezervace</li></a>
+            <a href="{{ url_for('dash.reservation_index') }}"><li>Rezervace</li></a>
             <a href="{{ url_for('dash.running') }}"><li>Probíhající pobyty</li></a>
             <a href="{{ url_for('dash.ended') }}"><li>Ukončené pobyty</li></a>
         {% endif %}
     {% endif %}
             <div id="log">
             <p id = "log-text">Právě přihlášen:</p>
-            <p id = "login">Login</p>
+            <p id = "login">{{current_user.login}}</p>
             </div>
             <a href="{{ url_for('main.logout') }}" id="logout"><li> Odhlásit se</li></a>
             <a href="{{ url_for('main.index') }}" id="back"><li> Zpět</li></a>

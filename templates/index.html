@@ -23,14 +23,14 @@
     <h1>Naše hotely</h1>
     <div id="hotely">
         <div class="hotel">
-            <a href="{{ url_for('main.rooms') }}"><img src="static/css/img/hotel0.png" >
+            <a href="{{ url_for('main.hotel_overview', id=1) }}"><img src="static/css/img/hotel0.png" >
                 <p>Praha</p>
             </a>
         </div>
-        <div class="hotel"><a href="{{ url_for('main.rooms') }}"><img src="static/css/img/hotel1.png" ><p>Brno</p></a></div>
-        <div class="hotel"><a href="{{ url_for('main.rooms') }}"><img src="static/css/img/hotel2.png" ><p>Olomouc</p></a></div>
-        <div class="hotel"><a href="{{ url_for('main.rooms') }}"><img src="static/css/img/hotel3.png" ><p>Hradec Králové</p></a></div>
-        <div class="hotel"><a href="{{ url_for('main.rooms') }}"><img src="static/css/img/hotel4.png" ><p>Ostrava</p></a></div>
+        <div class="hotel"><a href="{{ url_for('main.hotel_overview', id=1) }}"><img src="static/css/img/hotel1.png" ><p>Brno</p></a></div>
+        <div class="hotel"><a href="{{ url_for('main.hotel_overview', id=1) }}"><img src="static/css/img/hotel2.png" ><p>Olomouc</p></a></div>
+        <div class="hotel"><a href="{{ url_for('main.hotel_overview', id=1) }}"><img src="static/css/img/hotel3.png" ><p>Hradec Králové</p></a></div>
+        <div class="hotel"><a href="{{ url_for('main.hotel_overview', id=1) }}"><img src="static/css/img/hotel4.png" ><p>Ostrava</p></a></div>
     </div>
     <p id="textArea" class="block">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc volutpat libero laoreet, faucibus lectus sed,
@@ -71,20 +71,6 @@
         viverra dolor at, ullamcorper velit. Donec justo ex, fermentum eget placerat a, lobortis in felis. Donec 
         eleifend ligula et nisi laoreet pretium. Sed justo lacus, elementum eget diam venenatis, lobortis maximus
         est. Maecenas eu ex tristique elit condimentum volutpat at at velit.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc volutpat libero laoreet, faucibus lectus sed,
-        aliquam eros. Vivamus pretium, nibh ac fermentum hendrerit, turpis sem efficitur velit, at bibendum metus 
-        justo ac lectus. Morbi faucibus vel ante sed volutpat. Nulla nisl lectus, pellentesque vel rutrum quis, 
-        tempus eu eros. Vivamus suscipit iaculis libero, quis feugiat lectus interdum non. Duis nec purus gravida,
-        viverra dolor at, ullamcorper velit. Donec justo ex, fermentum eget placerat a, lobortis in felis. Donec 
-        eleifend ligula et nisi laoreet pretium. Sed justo lacus, elementum eget diam venenatis, lobortis maximus
-        est. Maecenas eu ex tristique elit condimentum volutpat at at velit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc volutpat libero laoreet, faucibus lectus sed,
-        aliquam eros. Vivamus pretium, nibh ac fermentum hendrerit, turpis sem efficitur velit, at bibendum metus 
-        justo ac lectus. Morbi faucibus vel ante sed volutpat. Nulla nisl lectus, pellentesque vel rutrum quis, 
-        tempus eu eros. Vivamus suscipit iaculis libero, quis feugiat lectus interdum non. Duis nec purus gravida,
-        viverra dolor at, ullamcorper velit. Donec justo ex, fermentum eget placerat a, lobortis in felis. Donec 
-        eleifend ligula et nisi laoreet pretium. Sed justo lacus, elementum eget diam venenatis, lobortis maximus
-        est. Maecenas eu ex tristique elit condimentum volutpat at at velit.
-            
     </p> 
   <!--{% if current_user.is_authenticated %} 
         Hi {{ current_user.name }}! 

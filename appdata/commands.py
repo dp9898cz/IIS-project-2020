@@ -17,31 +17,42 @@ def register_commands(app):
             user=User(
                 login='admin',
                 unhashed_password='admin',
-                isEmployee=True
+                isEmployee=True,
+                name='Admin',
+                surname='Admin'
             ),
             isAdmin=True,
-            isOwner=True
+            isOwner=True,
+            email='test@test.com'
         )
 
         owner_employee = Employee(
             user=User(
                 login='owner',
                 unhashed_password='owner',
-                isEmployee=True
+                isEmployee=True,
+                name='Owner',
+                surname='Owner'
             ),
-            isOwner=True
+            isOwner=True,
+            email='test@test.com'
         )
         manager_employee = Employee(
             user=User(
                 login='manager',
                 unhashed_password='manager',
-                isEmployee=True
-            )
+                isEmployee=True,
+                name='Manager',
+                surname='Manager'
+            ),
+            email='test@test.com'
         )
         test_customer = Customer(
             user=User(
                 login='test',
-                unhashed_password='test'
+                unhashed_password='test',
+                name='Customer',
+                surname='One'
             ),
             email='test@test.com'
         )
@@ -97,8 +108,8 @@ def register_commands(app):
         res = Reservation(
             visit = Visit(
                 customer = test_customer,
-                date_from = datetime.datetime.now(),
-                date_to = datetime.datetime.now(),
+                date_from = datetime.datetime(2020, 11, 27).date(),
+                date_to = datetime.datetime(2020, 11, 30).date(),
                 price = 6548,
                 visit_type = 'RES',
                 rooms = test_hotel.rooms
@@ -108,8 +119,8 @@ def register_commands(app):
         on = Ongoing(
             visit = Visit(
                 customer = test_customer,
-                date_from = datetime.datetime.now(),
-                date_to = datetime.datetime.now(),
+                date_from = datetime.datetime(2020, 11, 29).date(),
+                date_to = datetime.datetime(2020, 12, 12).date(),
                 price = 888,
                 visit_type = 'NOW',
                 rooms = [
@@ -122,8 +133,8 @@ def register_commands(app):
         past = Past(
             visit = Visit(
                 customer = test_customer,
-                date_from = datetime.datetime.now(),
-                date_to = datetime.datetime.now(),
+                date_from = datetime.datetime(2020, 11, 20).date(),
+                date_to = datetime.datetime(2020, 11, 25).date(),
                 price = 68448.888,
                 visit_type = 'PAS',
                 rooms = [
