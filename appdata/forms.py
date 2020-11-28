@@ -97,7 +97,6 @@ class ReservationForm(FlaskForm):
     submit = SubmitField('Vytvořit rezervaci')
 
     def validate_date_from(self, field):
-        print(self.hotel_id)
         now = datetime.date.today()
         date_from = field.data
         if (date_from < now):

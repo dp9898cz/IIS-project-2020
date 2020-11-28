@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, flash, render_template, request, redirect, url_for
 from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 
 from appdata.extensions import db
-from appdata.models import User, Customer, Hotel
+from appdata.models import User, Customer, Hotel, Reservation, Visit
 from appdata.forms import RegisterForm, LoginForm, ReservationForm
 
 main = Blueprint('main', __name__)
@@ -161,14 +161,42 @@ def reservation(id):
     }
     if request.method == 'POST' and form.validate_on_submit():
         #form validation succsess
-        print(request.form)
+        desired_rooms_number = int(form.one_rooms.data)
+        print(desired_rooms_number)
+        
+        avaiable_rooms = form.avaiable_rooms
+        print(avaiable_rooms)
+        if current_user.is_authenticated:
+            try:
+                tmp = Visit(
+                    customer_id = current_user.login,
+                    date_from = form.date_from.data,
+                    date_to = form.date_to.data,
+                    price = 2,
+                    visit_type='RES'
+                )
+                tmp.rooms = []
+                tmp.rooms = avaiable_rooms[:desired_rooms_number]
+                db.session.add(tmp)
+                res = Reservation(
+                    visit = tmp,
+                )
+                db.session.add(res)
+                db.session.commit()
+            except Exception as e:
+                print(e)
+                flash('Nastala neočekávaná chyba. Zkuste akci opakovat.')
+                return redirect(url_for('main.reservation', id=id))
+            return redirect(url_for('main.index'))
+        else:
+            flash("Děkujeme za rezervaci. Další informace máte na zadaném emailu.")
+            return redirect(url_for('main.index'))
     elif request.method == 'POST':
         #form validation failed
         context['resForm'] = form
     else:
         #get request
         context['resForm'] = form
-
     if not current_user.is_authenticated:
         context['registerForm'] = RegisterForm()
         context['loginForm'] = LoginForm()
