@@ -57,7 +57,7 @@
                         {% if current_user.isEmployee %}
                             <li><a href="{{url_for('dash.dash_index')}}" class="level">Správa</a></li>
                         {% else %}
-                            <li><a class="level">{{ current_user.login }}</a></li>
+                            <li><a href="{{url_for('main.profile')}}"  class="level">{{ current_user.login }}</a></li>
                         {% endif %}
                         <li><a href="{{ url_for('main.logout') }}" class="level" >Odhlásit</a></li>
                     {% else %} 

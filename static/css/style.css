@@ -38,7 +38,7 @@
 /*----------------------------------------------------------------*/
 /*Menu bar*/
 .menu{
-    margin: 10px;
+    margin: 15px;
 }
 .main-menu{
     font-family: Verdana ;
@@ -230,7 +230,7 @@
         
     }
     .main-title{
-        font-size: 18vw;
+        font-size: 100px !important;
         
     }
     
@@ -257,10 +257,6 @@
             display: none;
         
     }
-    .main-title{
-        font-size: 18vw;
-        
-    }
     
     
 }
@@ -271,7 +267,7 @@
     font-family:"Blanka-Regular", serif; 
     font-size: 150px;
     text-align: center;
-    margin-bottom: 30vh;
+    margin-bottom: 25vh;
     color: white;
     letter-spacing: 3px;
 }
@@ -291,6 +287,7 @@
 }
 body{
     margin: 0;
+    overflow: overlay;
 }
 
 /* ----------------------------------------------------*/
@@ -300,7 +297,7 @@ body{
     width: 98%;
     float: left;
     background-color: white;
-    margin: 10px;
+    margin: 1%;
     margin-top: 0px;
     margin-bottom: 0px;
     border-radius: 5px 5px 0px 0px;
@@ -332,6 +329,30 @@ body{
     font-size: 25px;
     float: left;
 }*/
+/*---------------------------------Custom Scrollbar----------------------------------------*/
+
+/* width */
+::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #1111111c; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(44, 141, 197); 
+    border-radius: 5px;
+    border: 5px solid rgb(255, 255, 255);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(255, 255, 255); 
+    border: 5px solid rgb(44, 141, 197);
+  }
 
 /* ----------------------------------------------------*/
 /* Hotely main site */
