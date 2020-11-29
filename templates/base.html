@@ -9,83 +9,70 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet"> 
     <link rel="icon" type="image/png" sizes="16x16" href="static/css/img/icon.png">
     <script src="{{ url_for('static', filename='js/main.js') }}"> </script>
-    {% block head %} {% endblock %}
+    {% block head %} 
+    {% endblock %}
 </head>
 
 <body>
     <div id="blur">
-        <!-- tady asi bude nejaka lista (navbar) -->
         <div class="menu-mobile"> 
             <label for="toggle"><img src="static/css/img/menu1.png" alt="menu-bars"  class="menu-bars"></label>
-            </div>
-            <input type="checkbox" id="toggle"/>
+        </div>
+        <input type="checkbox" id="toggle"/>
         <div class="menu">
             <nav class="main-menu">
-                    <a href="{{ url_for('main.onas', id=1) }}" class="main-icon">Rentel</a>
-                    
-                    <ul>
-                
-                <li><a class="level" href="{{ url_for('main.onas') }}">O nás</a>
+                <a href="{{ url_for('main.onas', id=1) }}" class="main-icon">Rentel</a>
+                <ul>
+                    <li>
+                        <a class="level" href="{{ url_for('main.onas') }}">O nás</a>
                         <ul>
-                            
                             <li><a href="{{ url_for('main.onas') }}">Rentel</a></li>
                             <li><a href="{{ url_for('main.history') }}">Historie</a></li>
                             
                         </ul>
                     </li>
-                    
-                    <li><a href="{{ url_for('main.index') }}"  class="level" >Hotely</a>
+                    <li>
+                        <a href="{{ url_for('main.index') }}"  class="level" >Hotely</a>
                         <ul>
-                                
-                            <li><a href="{{ url_for('main.hotel') }}">Praha</a></li>
-                            <li><a href="{{ url_for('main.hotel') }}">Brno</a></li>
-                            <li><a href="{{ url_for('main.hotel') }}">Olomouc</a></li>
-                            <li><a href="{{ url_for('main.hotel') }}">Ostrava</a></li>
-                        
+                            {% for hotel in hotels %}
+                            <li><a href="{{ url_for('main.hotel_overview', id=hotel.id) }}">{{hotel.name}}</a></li>
+                            {% endfor %}
                         </ul>
                     </li>
-                    <li><a class="level" href="{{ url_for('main.services') }}" >Služby</a>
+                    <li>
+                        <a class="level" href="{{ url_for('main.ubytovani') }}">Služby</a>
                         <ul> 
-                            
                             <li><a href="{{ url_for('main.ubytovani') }}">Ubytování</a></li>    
                             <li><a href="{{ url_for('main.sport') }}">Sport</a></li>
                             <li><a href="{{ url_for('main.personal') }}">Personál</a></li> 
-                        
                         </ul>
                     </li>
                     {% if current_user.is_authenticated %}
                         {% if current_user.isEmployee %}
-                            <li><a href="{{url_for('dash.dash_index')}}" class="level">Správa</a></li>
+                    <li><a href="{{url_for('dash.dash_index')}}" class="level">Správa</a></li>
                         {% else %}
-                            <li><a href="{{url_for('main.profile')}}"  class="level">{{ current_user.login }}</a></li>
+                    <li><a href="{{url_for('main.profile')}}"  class="level">{{ current_user.login }}</a></li>
                         {% endif %}
-                        <li><a href="{{ url_for('main.logout') }}" class="level" >Odhlásit</a></li>
+                    <li><a href="{{ url_for('main.logout') }}" class="level" >Odhlásit</a></li>
                     {% else %} 
-                        <li><a onclick="openLoginForm()" class="level" >Přihlásit</a></li>
+                    <li><a onclick="openLoginForm()" class="level" >Přihlásit</a></li>
                     {% endif %}
                 </ul>
-                
             </nav>
         </div>
-        
         <h1 class="main-title">
             Rentel
         </h1>
-    
-    
     {% block body %} 
     {% endblock %}
-
     </div>
 
     {% if not current_user.is_authenticated %}
     <div id="login-window">
         <div id="login-option">
             <h1>Přihlášení</h1>
-            <hr>
             <form method="POST" action="{{ url_for('main.login') }}">
                 <!-- login form -->
-                {{ loginForm.hidden_tag() }}
                 <div class="form-field">{{ loginForm.login.label }} {{ loginForm.login }}
                     {% if loginForm.login.errors %}
                     <ul class="errors">
@@ -104,14 +91,12 @@
                     </ul>
                     {% endif %}
                 </div>
-                {{ loginForm.submit }}
+                {{ loginForm.submit_ }}
             </form>
         </div>
         <div id="register-option">
             <h1>Registrace</h1>
-            <hr>
             <form method="POST" action="{{ url_for('main.register') }}">
-                {{ registerForm.hidden_tag() }}
                 <div class="form-field">{{ registerForm.reg_login.label }} {{ registerForm.reg_login }}
                     {% if registerForm.reg_login.errors %}
                     <ul class="errors">
@@ -149,12 +134,10 @@
                     {% endif %}
                 </div>
                 {{ registerForm.recaptcha }}
-                <hr>
                 {{ registerForm.submit }}
             </form>
         </div>
         <button onclick="toggleLoginRegisterOption()" id="login-register-toggle">Registrace</button>
-        <hr>
         <button onclick="closeLoginForm()">Exit</button>
     </div>
     {% endif %}

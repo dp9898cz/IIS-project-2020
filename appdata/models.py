@@ -52,6 +52,7 @@ class Hotel(db.Model):
     name = db.Column(db.String(100), nullable=False)
     address = db.Column(db.String)
     description = db.Column(db.String)
+    picture = db.Column(db.String)
 
     rooms = db.relationship('Room', backref='hotel', cascade="all, delete-orphan")
     employees = db.relationship('Employee', backref='hotel')

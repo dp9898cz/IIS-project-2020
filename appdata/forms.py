@@ -47,7 +47,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Heslo', [
         InputRequired()
     ])
-    submit = SubmitField('Přihlásit se')
+    submit_ = SubmitField('Přihlásit se')
 
     def validate_login(self, field):
         if not User.query.filter_by(login=field.data).first():

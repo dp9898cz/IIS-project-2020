@@ -21,13 +21,15 @@
                 <th>Název</th>
                 <th>Adresa</th>
                 <th>Popis</th>
+                <th></th>
                 <th> </th>
             </tr>
             <tr>
-                <form class="update-form" method="POST" action="{{url_for('dash.hotel_index')}}">
+                <form class="update-form" method="POST" enctype="multipart/form-data" action="{{url_for('dash.hotel_index')}}">
                     <th><input type="text" name="name" placeholder="Název hotelu"></th>
                     <th><input type="text" name="address" placeholder="Adresa"></th>
                     <th><input type="text" name="description" placeholder="Popis"></th>
+                    <th><input type="file" accept="image/*" name="picture"></th>
                     <th><input type="submit" value="Vytvořit"></th>
                 </form>
             </tr>   
