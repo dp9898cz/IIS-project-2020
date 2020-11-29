@@ -16,6 +16,7 @@
 {% block body %}
 {% if reservations %}
     <div class="find" >
+        <h2>Ukončené pobyty</h2>
         <h3>Hledat login:</h3>
         <form class="update-form" method="POST" action="{{url_for('dash.ended_index')}}">
             <input type="text" id="text-find" value="{{filter if filter else ''}}" name="reservation_filter">

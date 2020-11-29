@@ -193,14 +193,25 @@ label img{
 #content {
     width: auto;
     margin-left: 300px;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 .dash-table-head th{
     width: auto;
     font-size: 20px;
     padding: 10px;
 }
+th  [name="employees"]{
+    width: 80px;
 
+}
+th  [name="taken"]{
+    width: 80px;
+
+}
+th  [name="free"]{
+    width: 80px;
+
+}
 #content p{
     font: 40px sans-serif;
     
@@ -212,17 +223,47 @@ label img{
 #adding{
     margin-top: 50px;
 }
-#find{
-    margin-top: 100px;
+#find-user{
+    margin:20px ;
+    width: auto;
+    border: 1px solid black;
+    border-radius: 5px 5px 5px 5px;
+    overflow: hidden;
+    box-shadow: 8px 8px 7px rgb(160, 160, 160);
 }
 #text-find{
     width: 450px;
+    margin: 15px;
+    padding:25px;
+    font-size: 20px;
+    border-radius: 5px 5px 5px 5px;
 }
 #button-find{
-    width: 250px;
+    width: 150px;
+    margin: 10px;
+    height: 54px;
+    border-radius: 5px 5px 5px 5px;
 }
 #master-table{
     margin-top: 20px;
+}
+h2{
+    width: auto;
+    font-family: 'Raleway', sans-serif;
+    border-style: solid ;
+    border-width: 1px;
+    border-left: rgba(255, 255, 255, 0);
+    border-right: rgba(255, 255, 255, 0);
+    border-top: rgba(255, 255, 255, 0);
+    font-weight: 1;
+    font-size: 50px;
+    text-transform: uppercase;
+    color: #000;
+    padding-top:50px;
+    padding-bottom:10px;
+    margin-right:5% ;
+    margin-bottom: 20px;
+
 }
 h3{
     font-size: 40px;
@@ -230,43 +271,92 @@ h3{
 }
 .master-table-without-find{
     margin-top: 50px;
-
+    margin-right: 20px ;
+}
+.master-table-without-find p{
+    font-size: 20px !important;
+    padding-left: 20px;
 }
 .new-table-style{
     width: auto;
-    border: 1px solid rgb(0, 0, 0);
+    /*border: 1px solid rgb(0, 0, 0);*/
+    border-radius: 5px 5px 5px 5px;
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 8px 8px 7px rgb(160, 160, 160);
+    
 }
 .new-table-style tr:nth-child(even){
-    background-color: #f2f2f2
+    background-color: #f2f2f2;
+    line-height: 20px;
+}
+.new-table-style tr:nth-child(even) input{
+    height: 50px;
+}
+.new-table-style tr:nth-child(even) input[type=text]{
+    padding-left: 20px;
+}
+
+.new-table-style tr:nth-child(even) input[type="file"]{
+    margin-top:5px;
+    padding: 10px;
+}
+
+.new-table-style tr:nth-child(even) select{
+    height: 50px;
+    background-color: #f2f2f2;
+}
+.new-table-style tr:nth-child(even) input[type=submit]{
+    height: 49px;
+    margin-top: 1px;
 }
 .new-table-style tr:nth-child(1){
-    background-color: #e67a7a
+    background-color: #e43d3d;
 }
 .table-style{
     width: 100%;
-    border: 1px solid rgb(0, 0, 0);
+    /*border: 1px solid rgb(0, 0, 0);*/
+    border-radius: 5px 5px 5px 5px;
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: 8px 8px 7px rgb(160, 160, 160);
+}
+.table-style th{
+    height: 40px;
 }
 .table-style tr:nth-child(odd){
-    background-color: #ffffff
+    background-color: #ffffff;
 }
 .table-style tr:nth-child(1){
-    background-color: #4ab8da
+    background-color: #104a8b;
+    color: rgb(255, 255, 255);
+    line-height: 40px;
 }
 .table-style tr:nth-child(even){
-    background-color: #d0ebf3
+    background-color: #dfdfdf;
+    
 }
 input{
     width: 100%;
-    height: 30px;
+    height: 40px;
     font-size: 16px;
 }
 .table-style tr:nth-child(even) input{
-    background-color: #d0ebf3;
+    background-color: #dfdfdf;
     border:1px solid rgb(0, 0, 0) ;
 }
+.table-style tr:nth-child(odd) input[type=submit]{
+    background-color: #ffffff;
+}
+.table-style tr:nth-child(odd) input[type=text]{
+    background-color: #ffffff;
+}
 .table-style tr:nth-child(even) select{
-    background-color: #d0ebf3;
-    height: 32px;
+    background-color: #dfdfdf;
+    height: 40px;
+}
+.table-style tr:nth-child(odd) select{
+    height: 40px;
 }
 input[type=text] {
     padding: 5px;
@@ -289,11 +379,23 @@ input[type=submit]:hover {
     background-color: #535353 !important;
     color: rgb(255, 255, 255);
 }
+#change-hotel{
+    margin: 10px;
+    margin-left: 50px;
+    width: 300px;
+    height: 60px;
+    border:1px solid #000;
+    border-radius: 5px 5px 5px 5px;
+}
 select{
+    display: block;
     width: 150px;
-    height: 32px;
+    height: 40px;
     font-size: 16px;
     padding: 5px;
+    border: #000;
+    margin-right: 10px;
+    line-height: 1.3;
 }
 select option{
     background-color: #ffffff;
@@ -334,16 +436,16 @@ button{
   	-moz-transition: all 0.3s ease-out;
   	-ms-transition: all 0.3s ease-out;
   	-o-transition: all 0.3s ease-out;
-    border: 2px solid #888888;
+    border: 2px solid #424242;
 }
 .checkmark input:checked ~ .checkbox-custom {
-    background-color: #888888;
+    background-color: #424242;
     border-radius: 5px;
     -webkit-transform: rotate(0deg) scale(1);
     -ms-transform: rotate(0deg) scale(1);
     transform: rotate(0deg) scale(1);
     opacity:1;
-    border: 2px solid #888888;
+    border: 2px solid #424242;
 }
 .checkmark .checkbox-custom::after {
     position: absolute;
