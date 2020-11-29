@@ -63,6 +63,7 @@ class LoginForm(FlaskForm):
 class ReservationForm(FlaskForm):
     hotel_id = 0
     avaiable_rooms = []
+    price = 0.0
 
     """Form for main reservation"""
     login = StringField('Login', [
@@ -94,6 +95,7 @@ class ReservationForm(FlaskForm):
             InputRequired()
         ]
     )
+
     submit = SubmitField('Vytvořit rezervaci')
 
     def validate_date_from(self, field):
@@ -116,6 +118,7 @@ class ReservationForm(FlaskForm):
     def validate_one_rooms(self, field):
         f_from = self.date_from.data
         f_to = self.date_to.data
+        delta = f_to - f_from
         
         # get all avaiable rooms
         rooms = Room.query.filter_by(hotel_id=self.hotel_id).all()
@@ -137,3 +140,4 @@ class ReservationForm(FlaskForm):
             field.errors.append('Pro zvolené datum nejsou volné pokoje. Zbývá ' + str(len(avaiable_rooms)) + ' pokojů.')
         else:
             self.avaiable_rooms = avaiable_rooms
+            self.price = int(delta.days) * int(field.data) * float(rooms[0].night_price)

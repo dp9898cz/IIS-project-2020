@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" sizes="16x16" href="static/css/img/icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename='css/img/icon.png')}}">
     <script src="{{ url_for('static', filename='js/main.js') }}"> </script>
     {% block head %} 
     {% endblock %}
@@ -17,7 +17,7 @@
 <body>
     <div id="blur">
         <div class="menu-mobile"> 
-            <label for="toggle"><img src="static/css/img/menu1.png" alt="menu-bars"  class="menu-bars"></label>
+            <label for="toggle"><img src="{{url_for('static', filename='css/img/menu1.png')}}" alt="menu-bars"  class="menu-bars"></label>
         </div>
         <input type="checkbox" id="toggle"/>
         <div class="menu">
