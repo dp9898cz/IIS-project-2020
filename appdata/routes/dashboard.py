@@ -111,7 +111,7 @@ def user_create():
         return redirect(url_for('main.index'))
     else:
         try:
-            if request.form.get('isEmployee'):
+            if 'on' == request.form.get('isEmployee'):
                 usr = Employee(
                     user = User(
                         login = request.form.get('login'),

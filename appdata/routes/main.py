@@ -3,7 +3,7 @@ from werkzeug.security import check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 
 from appdata.extensions import db
-from appdata.models import User, Customer, Hotel, Reservation, Visit
+from appdata.models import User, Customer, Hotel, Reservation, Visit, Ongoing, Past
 from appdata.forms import RegisterForm, LoginForm, ReservationForm
 import base64
 
@@ -13,9 +13,7 @@ main = Blueprint('main', __name__)
 @main.context_processor
 def inject_hotels():
     hotels = Hotel.query.all()
-    print('fffffffff')
     if not current_user.is_authenticated:
-        print('F')
         registerForm = RegisterForm()
         loginForm = LoginForm()
         return dict(
@@ -113,7 +111,12 @@ def personal():
 
 @main.route('/profile', methods=['GET'])
 def profile():
-    return render_template('profile.html')
+    context = {
+        'reservations': Reservation.query.outerjoin(Visit).filter(Visit.customer_id == current_user.login),
+        'ongoing': Ongoing.query.outerjoin(Visit).filter(Visit.customer_id == current_user.login),
+        'past': Past.query.outerjoin(Visit).filter(Visit.customer_id == current_user.login)
+    }
+    return render_template('profile.html', **context)
 
 @main.route('/<id>', methods=['GET'])
 def hotel_overview(id):

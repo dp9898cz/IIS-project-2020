@@ -1,191 +1,131 @@
 {% extends 'base.html' %}
 
 {% block head %}
-
 {% endblock %}
 
 {% block body %}
 <div class="content">
- 
     <h2 class="profile-h">Údaje uživatele</h2>
     <div class="table-div">
         <table class="profile-info">
             <tr>
                 <th>Login:</th>
-                <th>Login</th>
+                <th>{{current_user.login}}</th>
             </tr>
             <tr>
                 <th>Jméno:</th>
-                <th>Jmeno</th>
+                <th>{{current_user.name}}</th>
             </tr>
             <tr>
                 <th>Příjmení:</th>
-                <th>Příjmení</th>
+                <th>{{current_user.surname}}</th>
             </tr>
             <tr>
                 <th>Email:</th>
-                <th>Email</th>
+                <th>{{current_user.customers.email}}</th>
             </tr>
-
-            
         </table> 
     </div>
     <h2 class="profile-h">Rezervace uživatele</h2>
     <div class="table-div">
-        <table class="profile-table">
-            <tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-                <th>Jistota</th>
-            </tr>
-            <tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-                <th>Jistota</th>
-            </tr>
-            <tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-                <th>Jistota</th>
-            </tr>
-        </table> 
+        {% if reservations %}
+            <table class="profile-table">
+                <tr>
+                    <th>Číslo rezervace</th>
+                    <th>Hotel</th>
+                    <th>Pokoje</th>
+                    <th>Datum od</th>
+                    <th>Datum do</th>
+                    <th>Cena</th>
+                    <th>Jistina zaplacena</th>
+                    <th>Pobyt zaplacen</th>
+                </tr>
+                {% for res in reservations %}
+                    <tr>
+                        <td>{{res.visit_id}}</td>
+                        <td>{{res.visit.rooms[0].hotel.name}}</td>
+                        <td>
+                            {% for room in res.visit.rooms %}
+                                {{room.number}}{{ ", " if not loop.last }}
+                            {% endfor %}
+                        </td>
+                        <td>{{res.visit.date_from}}</td>
+                        <td>{{res.visit.date_to}}</td>
+                        <td>{{res.visit.price}}</td>
+                        <td>{{"ano" if res.is_paid_princ else "ne"}}</td>
+                        <td>{{"ano" if res.is_paid_visit else "ne"}}</td>
+                    </tr>
+                {% endfor %}
+            </table> 
+        {% else %}
+            <p>Nebyly nalezeny žádné rezervace.</p>
+        {% endif %}
     </div>
     <h2 class="profile-h">Aktuální pobyty</h2>
     <div class="table-div">
-        <table class="profile-table">
-            <tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-            </tr>
-            <tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-            </tr>
-            <tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-            </tr>
-            <tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-            </tr>
-        </table > 
+        {% if ongoing %}
+            <table class="profile-table">
+                <tr>
+                    <th>Číslo pobytu</th>
+                    <th>Hotel</th>
+                    <th>Pokoje</th>
+                    <th>Datum od</th>
+                    <th>Datum do</th>
+                    <th>Cena</th>
+                    <th>Klíč u zákazníka</th>
+                    <th>Pobyt zaplacen</th>
+                </tr>
+                {% for o in ongoing %}
+                    <tr>
+                        <th>{{o.visit.id}}</th>
+                        <td>{{o.visit.rooms[0].hotel.name}}</td>
+                        <td>
+                            {% for room in o.visit.rooms %}
+                                {{room.number}}{{ ", " if not loop.last }}
+                            {% endfor %}
+                        </td>
+                        <td>{{o.visit.date_from}}</td>
+                        <td>{{o.visit.date_to}}</td>
+                        <td>{{o.visit.price}}</td>
+                        <td>{{"ano" if o.key_customer else "ne"}}</td>
+                        <td>{{"ano" if o.is_paid_visit else "ne"}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>Nebyly nalezeny žádné pobyty.</p>
+        {% endif %}
     </div>
     <h2 class="profile-h">Historie pobytů</h2>
     <div class="table-div">
-        <table class="profile-table">
-            <tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-            </tr>
-            <tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-            </tr>
-            <tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-            </tr>
-            <tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-            </tr>
-            <tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-            </tr>
-            <tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-            </tr>
-
-            <tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-            </tr><tr>
-                <th>Číslo rezervace</th>
-                <th>Hotel</th>
-                <th>Pokoj</th>
-                <th>Počet lůžek</th>
-                <th>Datum od</th>
-                <th>Datum do</th>
-                <th>Cena</th>
-            </tr>
-
-        </table> 
+        {% if past %}
+            <table class="profile-table">
+                <tr>
+                    <th>Číslo rezervace</th>
+                    <th>Hotel</th>
+                    <th>Pokoj</th>
+                    <th>Datum od</th>
+                    <th>Datum do</th>
+                    <th>Cena</th>
+                </tr>
+                {% for p in past %}
+                    <tr>
+                        <th>{{p.visit.id}}</th>
+                        <td>{{p.visit.rooms[0].hotel.name}}</td>
+                        <td>
+                            {% for room in p.visit.rooms %}
+                                {{room.number}}{{ ", " if not loop.last }}
+                            {% endfor %}
+                        </td>
+                        <td>{{p.visit.date_from}}</td>
+                        <td>{{p.visit.date_to}}</td>
+                        <td>{{p.visit.price}}</td>
+                    </tr>
+                {% endfor %}
+            </table> 
+        {% else %}
+            <p>Nebyly nalezeny žádné pobyty.</p>
+        {% endif %}
     </div>
-    <p id="textArea" class="block">
-       
-    </p> 
 </div>
 {% endblock %}
