@@ -157,7 +157,7 @@ def reservation(id):
                 db.session.commit()
             except Exception as e:
                 print(e)
-                flash('Nastala neočekávaná chyba. Zkuste akci opakovat.')
+                flash('Nastala neočekávaná chyba. Zkuste akci opakovat.' + str(e))
                 return redirect(url_for('main.reservation', id=id))
             return redirect(url_for('main.index'))
         else:
