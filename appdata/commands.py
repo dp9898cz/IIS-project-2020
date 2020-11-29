@@ -1,5 +1,6 @@
 import click, datetime
 from flask.cli import with_appcontext
+from flask import url_for
 
 from appdata.extensions import db
 from appdata.models import Hotel, User, Customer, Employee, Reservation, Visit, Ongoing, Past, Room
@@ -47,6 +48,7 @@ def register_commands(app):
             ),
             email='test@test.com'
         )
+        
         test_customer = Customer(
             user=User(
                 login='test',
@@ -57,52 +59,135 @@ def register_commands(app):
             email='test@test.com'
         )
 
-        test_hotel = Hotel(
-            name = 'MyHotel',
-            address = 'ulice č',
+        praha = Hotel(
+            name = 'Praha',
+            address = 'ulice č 6',
             description = 'deshkdsfgkbiiuv',
             rooms = [
                 Room(
-                    number = 565,
+                    number = 56,
                     night_price = 54.88,
                     room_type = 'ECON',
                     number_of_beds = 2
                 ),
                 Room(
-                    number = 566,
+                    number = 58,
+                    night_price = 88,
+                    room_type = 'BUSS',
+                    number_of_beds = 3
+                ),
+                Room(
+                    number = 60,
                     night_price = 88,
                     room_type = 'PREM',
-                    number_of_beds = 3
+                    number_of_beds = 2
                 )
-            ]
+            ],
+            picture = 'hotel0.png'
         )
-
-        test_hotel_2 = Hotel(
-            name = 'MyHotel_2',
-            address = 'ulice č 2',
-            description = 'deshkdsfgkbidfDiuv',
+        brno = Hotel(
+            name = 'Brno',
+            address = 'ulice č 6',
+            description = 'deshkdsfgkbiiuv',
             rooms = [
                 Room(
-                    number = 565,
+                    number = 44,
                     night_price = 54.88,
                     room_type = 'ECON',
                     number_of_beds = 2
                 ),
                 Room(
-                    number = 566,
+                    number = 45,
+                    night_price = 88,
+                    room_type = 'BUSS',
+                    number_of_beds = 3
+                ),
+                Room(
+                    number = 46,
                     night_price = 88,
                     room_type = 'PREM',
-                    number_of_beds = 3
+                    number_of_beds = 2
                 )
-            ]
+            ],
+            picture = 'hotel1.png'
         )
-
-        another_room = Room(
-            number = 569,
-            night_price = 48,
-            room_type = 'BUSS',
-            number_of_beds = 3,
-            hotel = test_hotel
+        olomouc = Hotel(
+            name = 'Olomouc',
+            address = 'ulice č 6',
+            description = 'deshkdsfgkbiiuv',
+            rooms = [
+                Room(
+                    number = 33,
+                    night_price = 54.88,
+                    room_type = 'ECON',
+                    number_of_beds = 2
+                ),
+                Room(
+                    number = 34,
+                    night_price = 88,
+                    room_type = 'BUSS',
+                    number_of_beds = 3
+                ),
+                Room(
+                    number = 35,
+                    night_price = 88,
+                    room_type = 'PREM',
+                    number_of_beds = 2
+                )
+            ],
+            picture = 'hotel2.png'
+        )
+        hradec = Hotel(
+            name = 'Hradec Králové',
+            address = 'ulice č 6',
+            description = 'deshkdsfgkbiiuv',
+            rooms = [
+                Room(
+                    number = 21,
+                    night_price = 54.88,
+                    room_type = 'ECON',
+                    number_of_beds = 2
+                ),
+                Room(
+                    number = 22,
+                    night_price = 88,
+                    room_type = 'BUSS',
+                    number_of_beds = 3
+                ),
+                Room(
+                    number = 23,
+                    night_price = 88,
+                    room_type = 'PREM',
+                    number_of_beds = 2
+                )
+            ],
+            picture = 'hotel3.png'
+        )
+        ostrava = Hotel(
+            name = 'Ostrava',
+            address = 'ulice č 6',
+            description = 'deshkdsfgkbiiuv',
+            rooms = [
+                Room(
+                    number = 11,
+                    night_price = 54.88,
+                    room_type = 'ECON',
+                    number_of_beds = 2
+                ),
+                Room(
+                    number = 12,
+                    night_price = 88,
+                    room_type = 'BUSS',
+                    number_of_beds = 3
+                ),
+                Room(
+                    number = 13,
+                    night_price = 88,
+                    room_type = 'PREM',
+                    number_of_beds = 2
+                )
+            ],
+            picture = 'hotel4.png'
         )
 
         res = Reservation(
@@ -112,7 +197,7 @@ def register_commands(app):
                 date_to = datetime.datetime(2020, 11, 30).date(),
                 price = 6548,
                 visit_type = 'RES',
-                rooms = test_hotel.rooms
+                rooms = brno.rooms
             )
         )
 
@@ -123,9 +208,7 @@ def register_commands(app):
                 date_to = datetime.datetime(2020, 12, 12).date(),
                 price = 888,
                 visit_type = 'NOW',
-                rooms = [
-                    another_room
-                ]
+                rooms = praha.rooms
             ),
             key_customer = True
         )
@@ -137,16 +220,24 @@ def register_commands(app):
                 date_to = datetime.datetime(2020, 11, 25).date(),
                 price = 68448.888,
                 visit_type = 'PAS',
-                rooms = [
-                    another_room
-                ]
+                rooms = ostrava.rooms
             ),
         )
 
+        admin_employee.hotel = praha
+        owner_employee.hotel = olomouc
+        manager_employee.hotel = hradec
+
+
         db.session.add(admin_employee)
-        db.session.add(test_hotel_2)
         db.session.add(owner_employee)
         db.session.add(manager_employee)
         db.session.add(test_customer)
+
+        db.session.add(praha)
+        db.session.add(brno)
+        db.session.add(ostrava)
+        db.session.add(hradec)
+        db.session.add(olomouc)
 
         db.session.commit()

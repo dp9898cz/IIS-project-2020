@@ -1,5 +1,7 @@
 from flask import Blueprint, flash, render_template, redirect, url_for, request, make_response
 from flask_login import login_required, current_user
+from werkzeug.utils import secure_filename
+import os
 
 from appdata.models import User, Employee, Customer, Hotel, Room, Past, Visit, Ongoing, room_visit, Reservation
 from appdata.extensions import csrf, db
@@ -149,10 +151,22 @@ def hotel_index():
     elif request.method == 'POST':
         # this is create new hotel
         try:
+            if 'picture' not in request.files:
+                flash('No file part.')
+                return redirect(request.url)
+            file = request.files['picture']
+            if file.filename == '':
+                flash('No selected file.')
+                return redirect(request.url)
+            if file:
+                filename = secure_filename(file.filename)
+                file.save(os.path.join('static/css/img', filename))
+
             tmp = Hotel(
                 name = request.form.get('name'),
                 address = request.form.get('address'),
-                description = request.form.get('description')
+                description = request.form.get('description'),
+                picture = file.filename
             )
             db.session.add(tmp)
             db.session.commit()
