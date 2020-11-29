@@ -17,6 +17,7 @@
 
 {% if users %}
     <div class="adding" >
+        <h2>Správa uživatelů</h2>
         <h3>Nový uživatel:</h3>
         <table class="new-table-style">
             <tr class="dash-table-head">
@@ -51,11 +52,13 @@
         </table> 
     </div> 
     <div class="find" >
+        <div id="find-user">
         <h3>Hledat login:</h3>
-        <form class="update-form" method="POST" action="{{url_for('dash.user_index')}}">
+        <form class="update-form" method="POST" action="{{url_for('dash.user_index')}}">       
             <input type="text" id="text-find" value="{{filter if filter else ''}}" name="user_filter">
             <input type="submit"  id="button-find" value="Hledat">
         </form>
+        </div>
     </div>  
     <table id="master-table" class="table-style">
         <tr class="dash-table-head">

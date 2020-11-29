@@ -15,6 +15,7 @@
 
 {% block body %}
     <div class="adding">
+        <h2>Správa pokojů</h2>
         <h3>Nový pokoj:</h3>
         <table class="new-table-style">
             <tr class="dash-table-head">
@@ -46,14 +47,17 @@
         </table>
     </div>
     <div class="find" >
+        <div id="find-user">
         <h3>Vybrat hotel:</h3>
+        
         <form class="update-form" method="POST" action="{{url_for('dash.room_index')}}">
-            <select name="hotel" onchange="this.form.submit()">
+            <select name="hotel" id="change-hotel" onchange="this.form.submit()">
                 {% for hotel in hotels %}
                     <option value="{{hotel.id}}" {% if (hotel.id|int == selected_h|int) %} selected {% endif %}>{{hotel.name}}</option>
                 {% endfor %}
             </select>
         </form>
+        </div>
     </div>
     <table id="master-table" class="table-style">
         <tr class="dash-table-head">
