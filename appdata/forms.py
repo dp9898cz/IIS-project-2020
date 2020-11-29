@@ -123,7 +123,7 @@ class ReservationForm(FlaskForm):
         # get all forbidden rooms
         forbidden_visits = Visit\
                 .query\
-                .filter(Visit.visit_type != 'PAST')\
+                .filter(Visit.visit_type != 'PAS')\
                 .filter(((f_from >= Visit.date_from) & (f_from < Visit.date_to)) \
                     | ((f_to > Visit.date_from) & (f_to <= Visit.date_to)))\
                 .all()
