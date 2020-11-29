@@ -13,7 +13,9 @@ main = Blueprint('main', __name__)
 @main.context_processor
 def inject_hotels():
     hotels = Hotel.query.all()
+    print('fffffffff')
     if not current_user.is_authenticated:
+        print('F')
         registerForm = RegisterForm()
         loginForm = LoginForm()
         return dict(
@@ -64,7 +66,8 @@ def login():
     if request.method == 'POST' and form.validate_on_submit():
         #successfully validate
         login_user(User.query.filter_by(login=form.login.data).first())
-        return redirect(request.referrer)
+        print('heeeeeeee')
+        return redirect(url_for('main.index'))
     elif request.method == 'POST':
         # validation failed
         context = {

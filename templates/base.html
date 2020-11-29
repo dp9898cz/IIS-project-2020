@@ -72,6 +72,7 @@
         <div id="login-option">
             <h1>Přihlášení</h1>
             <form method="POST" action="{{ url_for('main.login') }}">
+                {{loginForm.hidden_tag()}}
                 <!-- login form -->
                 <div class="form-field">{{ loginForm.login.label }} {{ loginForm.login }}
                     {% if loginForm.login.errors %}
@@ -97,6 +98,7 @@
         <div id="register-option">
             <h1>Registrace</h1>
             <form method="POST" action="{{ url_for('main.register') }}">
+                {{registerForm.hidden_tag()}}
                 <div class="form-field">{{ registerForm.reg_login.label }} {{ registerForm.reg_login }}
                     {% if registerForm.reg_login.errors %}
                     <ul class="errors">
