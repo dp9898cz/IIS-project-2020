@@ -3,14 +3,26 @@
 {% block head %}
 {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <script>
-        var messages = {{ messages | safe }};
-        for (var i=0; i<messages.length; i++) {
-            alert(messages[i]);
-        }
-    </script>
+        <script>
+            var messages = {{ messages | safe }};
+            for (var i=0; i<messages.length; i++) {
+                alert(messages[i]);
+            }
+        </script>
     {% endif %}
 {% endwith %}
+    <script>
+        window.addEventListener("load", function(){
+            room = {{hotel.rooms[0].night_price}}
+            obj = document.getElementById("date_from");
+            obj1 = document.getElementById("date_to");
+            obj2 = document.getElementById("one_rooms");
+            obj_ch = document.getElementById("res_form_price");
+            obj.onchange = function(){updatePrice(obj_ch, room);};
+            obj1.onchange = function(){updatePrice(obj_ch, room);};
+            obj2.onchange = function(){updatePrice(obj_ch, room);};
+        });
+    </script>
 {% endblock %}
 
 {% block body %}
@@ -94,6 +106,11 @@
                     {% endfor %}
                 </ul>
             {% endif %}
+        </div>
+        <div class="input-group">
+            <label>Celková cena:</label>
+            <label id="res_form_price" name="price">0</label>
+            <label> Kč</label>
         </div>
         {{ resForm.submit }}
     </form>

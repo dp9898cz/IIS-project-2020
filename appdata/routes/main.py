@@ -134,17 +134,14 @@ def reservation(id):
     if request.method == 'POST' and form.validate_on_submit():
         #form validation succsess
         desired_rooms_number = int(form.one_rooms.data)
-        print(desired_rooms_number)
-        
         avaiable_rooms = form.avaiable_rooms
-        print(avaiable_rooms)
         if current_user.is_authenticated:
             try:
                 tmp = Visit(
                     customer_id = current_user.login,
                     date_from = form.date_from.data,
                     date_to = form.date_to.data,
-                    price = 2,
+                    price = form.price,
                     visit_type='RES'
                 )
                 tmp.rooms = []

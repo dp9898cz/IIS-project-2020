@@ -42,3 +42,17 @@ function userCreateController() {
         }
     }
 }
+
+function updatePrice(object_, price) {
+    var date_from = new Date(document.getElementById("date_from").value);
+    var date_to = new Date(document.getElementById("date_to").value);
+    var rooms = document.getElementById("one_rooms").value;
+
+    today = new Date();
+    today.setHours(0,0,0,0);
+
+    if (date_from && date_to && date_from >= today && date_to >= today && date_to > date_from) {
+        var diff = ((((date_to - date_from) / 1000) / 60) / 60) / 24
+        object_.innerHTML = (diff * price * rooms)
+    }
+}
