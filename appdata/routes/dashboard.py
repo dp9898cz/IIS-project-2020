@@ -66,6 +66,12 @@ def update_user():
                 flash('Tento login už existuje. Použijte jiný.')
                 return redirect(url_for('dash.user_index'))
         try:
+            cst_temp = Customer.query.filter_by(user_id='None').first()
+            emp_temp = Employee.query.filter_by(user_id='None').first()
+            if (cst_temp):
+                db.session.delete(cst_temp)
+            if (emp_temp):
+                db.session.delete(emp_temp)
             # change all fields
             if (request.form.get('password') != ''):
                 old_user_obj.unhashed_password = request.form.get('password')
@@ -75,19 +81,23 @@ def update_user():
                     flash("We dont do that here.")
                     return redirect(url_for('dash.user_index'))
                 else:
-                    old_user_obj.employees.user_id = None
+                    employee = old_user_obj.employees
+                    employee.user_id = "None"
+                    db.session.commit()
                     old_user_obj.login = request.form.get('login')
-                    old_user_obj.employees.user_id = request.form.get('login')
-                    old_user_obj.employees.isAdmin = 'on' == request.form.get('isAdmin')
-                    old_user_obj.employees.isOwner = 'on' == request.form.get('isOwner')
-                    old_user_obj.employees.isManager = 'on' == request.form.get('isManager')
-                    old_user_obj.employees.email = request.form.get('email')
-                    old_user_obj.employees.hotel_id = request.form.get('hotel')
+                    employee.user_id = request.form.get('login')
+                    employee.isAdmin = 'on' == request.form.get('isAdmin')
+                    employee.isOwner = 'on' == request.form.get('isOwner')
+                    employee.isManager = 'on' == request.form.get('isManager')
+                    employee.email = request.form.get('email')
+                    employee.hotel_id = request.form.get('hotel')
             else:
-                old_user_obj.customers.user_id = None
+                customer = old_user_obj.customers
+                customer.user_id = "None"
+                db.session.commit()
                 old_user_obj.login = request.form.get('login')
-                old_user_obj.customers.user_id = request.form.get('login')
-                old_user_obj.customers.email = request.form.get('email') if request.form.get('email') != '' else None
+                customer.user_id = request.form.get('login')
+                customer.email = request.form.get('email') if request.form.get('email') != '' else None
             db.session.commit()
         except Exception as e:
             print(e)
