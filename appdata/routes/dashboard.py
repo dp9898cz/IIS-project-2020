@@ -67,20 +67,26 @@ def update_user():
                 return redirect(url_for('dash.user_index'))
         try:
             # change all fields
-            old_user_obj.login = request.form.get('login')
             if (request.form.get('password') != ''):
                 old_user_obj.unhashed_password = request.form.get('password')
-            if (old_user_obj.isEmployee):
+            if old_user_obj.isEmployee:
                 if (old_user_obj.employees.isAdmin and old_user_obj.id == current_user.id):
                     # admin cant change admin right to itself
                     flash("We dont do that here.")
+                    return redirect(url_for('dash.user_index'))
                 else:
+                    old_user_obj.employees.user_id = None
+                    old_user_obj.login = request.form.get('login')
+                    old_user_obj.employees.user_id = request.form.get('login')
                     old_user_obj.employees.isAdmin = 'on' == request.form.get('isAdmin')
-                old_user_obj.employees.isOwner = 'on' == request.form.get('isOwner')
-                old_user_obj.employees.isManager = 'on' == request.form.get('isManager')
-                old_user_obj.employees.email = request.form.get('email')
-                old_user_obj.employees.hotel_id = request.form.get('hotel')
+                    old_user_obj.employees.isOwner = 'on' == request.form.get('isOwner')
+                    old_user_obj.employees.isManager = 'on' == request.form.get('isManager')
+                    old_user_obj.employees.email = request.form.get('email')
+                    old_user_obj.employees.hotel_id = request.form.get('hotel')
             else:
+                old_user_obj.customers.user_id = None
+                old_user_obj.login = request.form.get('login')
+                old_user_obj.customers.user_id = request.form.get('login')
                 old_user_obj.customers.email = request.form.get('email') if request.form.get('email') != '' else None
             db.session.commit()
         except Exception as e:
