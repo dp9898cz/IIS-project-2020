@@ -39,7 +39,9 @@ def register():
         customer = Customer(
             user = User(
                 login = form.reg_login.data,
-                unhashed_password = form.reg_password.data
+                unhashed_password = form.reg_password.data,
+                name = form.reg_name.data,
+                surname=form.reg_surname.data
             ), 
             email = form.email.data
         )

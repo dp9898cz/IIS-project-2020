@@ -13,6 +13,12 @@ class RegisterForm(FlaskForm):
     reg_login = StringField('Login', [
         InputRequired()
         ])
+    reg_name = StringField('Jméno', [
+        Optional()
+    ])
+    reg_surname = StringField('Příjmení', [
+        Optional()
+    ])
     email = StringField('Email', [
         Email(message=('Zadejte validní email.')),
         InputRequired()

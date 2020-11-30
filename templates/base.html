@@ -109,6 +109,24 @@
                     </ul>
                     {% endif %}
                 </div>
+                <div class="form-field">{{ registerForm.reg_name.label }} {{ registerForm.reg_name }}
+                    {% if registerForm.reg_login.errors %}
+                    <ul class="errors">
+                        {% for error in registerForm.reg_name.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="form-field">{{ registerForm.reg_surname.label }} {{ registerForm.reg_surname }}
+                    {% if registerForm.reg_name.errors %}
+                    <ul class="errors">
+                        {% for error in registerForm.reg_surname.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
                 <div class="form-field">{{ registerForm.email.label }} {{ registerForm.email }}
                     {% if registerForm.email.errors %}
                         <ul class="errors">
