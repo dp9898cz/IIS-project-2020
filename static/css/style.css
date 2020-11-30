@@ -787,3 +787,105 @@ html{
     background-color: #dddddd;
     color: #000;
 }
+/**************************************************/
+/* Variables */
+
+/* Base */
+
+#history {
+  font-size: 16px;
+}
+
+p {
+  font-weight: 300;
+}
+
+strong {
+  font-weight: 600;
+}
+
+#history  h1 {
+ letter-spacing: 1.5px;
+ color: grey;  
+ font-weight: 400;
+ font-size: 2.4em;
+}
+
+#timeline-content {
+  margin-top: 20px;
+  text-align: center;  
+}
+
+/* Timeline */
+
+.timeline {
+  border-left: 4px solid black;
+  border-radius: 5px;   
+  background: rgb(235, 235, 235);
+  box-shadow: 8px 8px 7px rgb(160, 160, 160);
+  color: black; 
+  margin: 40px;
+  letter-spacing: 0.5px;   
+  position: relative;
+  line-height: 1.4em;
+  font-size: 1.03em;   
+  padding: 50px;   
+  list-style: none;
+  text-align: left;  
+  font-weight: 100;  
+ 
+  
+}
+  
+  .event {
+    border-bottom: 1px dashed gray;
+    padding-left: 50px ;
+    margin-bottom: 50px;  
+    margin-top: 50px;  
+    position: relative;
+  }
+  .event h3 {
+    padding-top: 45px;
+    padding-bottom: 10px;
+    font-family: Verdana,  sans-serif;
+    font-weight: 200;
+    font-size: 30px;
+    color: rgb(187, 81, 81);
+  }
+  .event p {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 25px;
+    font-family: 'Gill Sans', sans-serif;
+  }
+  .event:last-of-type { 
+      padding-bottom: 0;
+      margin-bottom: 0; 
+      border: none;      
+    }
+
+    .event:before, .event:after {
+      position: absolute;
+      display: block;
+      top: 0;
+    }
+
+    .event:before {   
+      color: black; 
+      font-family: 'Raleway', sans-serif;   
+      content: attr(data-date);
+      text-align: left;
+      font-weight: 200;    
+      font-size: 25px;
+      left: -10px;
+    }
+
+    .event:after {
+      box-shadow: 0 0 0 4px rgb(0, 0, 0);    
+      background: rgb(255, 255, 255);    
+      border-radius: 50%;  
+      height: 11px;
+      width: 11px;
+      content: "";
+      left: -57px;
+    }
