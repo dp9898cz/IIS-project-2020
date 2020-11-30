@@ -85,7 +85,7 @@ def update_user():
             db.session.commit()
         except Exception as e:
             print(e)
-            flash('Nastala chyba při aktualizaci údajů. Zkontrolujte údaje a opakujte akci.')
+            flash('Nastala chyba při aktualizaci údajů. Zkontrolujte údaje a opakujte akci.' + str(e))
         return redirect(url_for('dash.user_index'))
 
 @dash.route('/dashboard/users/delete', methods=['POST'])
