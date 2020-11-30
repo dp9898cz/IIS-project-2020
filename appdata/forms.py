@@ -120,6 +120,8 @@ class ReservationForm(FlaskForm):
             field.errors.append('Pobyt lze zarezervovat na maximálně 30 nocí.')
         if (field.data == self.date_from.data):
             field.errors.append('Pobyt lze zarezervovat na minimálně 1 noc.')
+        if (field.data < self.date_from.data):
+            field.errors.append('Pobyt nesmí končit dříve, než začne.')
 
     def validate_one_rooms(self, field):
         f_from = self.date_from.data
