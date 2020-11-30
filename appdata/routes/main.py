@@ -161,7 +161,7 @@ def reservation(id):
             return redirect(url_for('main.index'))
         else:
             flash("Děkujeme za rezervaci. Další informace máte na zadaném emailu.")
-            return redirect(url_for('main.index'))
+            return redirect(url_for('main.reservation', id=id))
     elif request.method == 'POST':
         #form validation failed
         context['resForm'] = form
