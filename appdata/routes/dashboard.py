@@ -66,12 +66,6 @@ def update_user():
                 flash('Tento login už existuje. Použijte jiný.')
                 return redirect(url_for('dash.user_index'))
         try:
-            cst_temp = Customer.query.filter_by(user_id='None').first()
-            emp_temp = Employee.query.filter_by(user_id='None').first()
-            if (cst_temp):
-                db.session.delete(cst_temp)
-            if (emp_temp):
-                db.session.delete(emp_temp)
             # change all fields
             if (request.form.get('password') != ''):
                 old_user_obj.unhashed_password = request.form.get('password')
@@ -82,10 +76,6 @@ def update_user():
                     return redirect(url_for('dash.user_index'))
                 else:
                     employee = old_user_obj.employees
-                    employee.user_id = "None"
-                    db.session.commit()
-                    old_user_obj.login = request.form.get('login')
-                    employee.user_id = request.form.get('login')
                     employee.isAdmin = 'on' == request.form.get('isAdmin')
                     employee.isOwner = 'on' == request.form.get('isOwner')
                     employee.isManager = 'on' == request.form.get('isManager')
@@ -93,10 +83,6 @@ def update_user():
                     employee.hotel_id = request.form.get('hotel')
             else:
                 customer = old_user_obj.customers
-                customer.user_id = "None"
-                db.session.commit()
-                old_user_obj.login = request.form.get('login')
-                customer.user_id = request.form.get('login')
                 customer.email = request.form.get('email') if request.form.get('email') != '' else None
             db.session.commit()
         except Exception as e:

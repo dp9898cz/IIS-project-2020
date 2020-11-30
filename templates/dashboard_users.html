@@ -77,7 +77,7 @@
         <tr>
             <form class="update-form" method="POST" action="{{url_for('dash.update_user')}}">
                 <input type="hidden" value="{{user.id}}" name="old_id">
-                <th><input type="text" value="{{user.login}}" name="login"></th>
+                <th><input type="text" value="{{user.login}}" name="login" disabled></th>
                 <th><input type="text" value="" name="password"></th>
                 {% if user.employees %}
                 <th><input type="text" value="{{user.employees.email if user.employees.email else ''}}" name="email"></th>
