@@ -41,7 +41,14 @@
    </tbody></table>
 
    <h2>Implementace</h2>
-   <p>Stručná dokumentace k implementaci, která popisuje, které části projektu (např. PHP skripty) implementují jednotlivé případy použití.</p>
+   <p>
+   Pro implementaci projektu jsme si zvolili framework Flask napsaný v jazyce Python.<br>
+   Samotnou webovou aplikaci představuje soubor app.py. Jednotlivé webové stránky jsou napsané pomocí Jinja2 a HTML ve složce /templates.<br>
+   Složka /static obsahuje soubory CSS a Javascriptu, které slouží pro správnou funkci a vzhled webu.<br>
+   Logika webu se navhází ve složce /appdata. Zde se nachází soubor models.py, ve kterém je popis databázových objektů, a také commands.py. Ten slouží k vytvoření databáze pomocí příkazů "flask cretate_db" a "flask fill_db".<br>
+   Dále jsou zde formuláře v souboru forms.py a některá rozšíření aplikace v souboru extensions.py.<br>
+   Důležitou součástí jsou dva soubory ve složce /appdata/routes. Zde je popsáno, jakým způsobem probíhá veškerý provoz na webu (např. tvorba nových účtů, ovládní administrace, login/logout).<br>
+   </p>
 
    <h3>Databáze</h3>
 
