@@ -769,3 +769,7 @@ html{
     background-color: #dddddd;
     color: #000;
 }
+.hotel-popis{
+    padding: 20px;
+    font-size: 20px;
+}
