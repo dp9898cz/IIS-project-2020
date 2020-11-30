@@ -889,3 +889,8 @@ strong {
       content: "";
       left: -57px;
     }
+
+.hotel-popis{
+    padding: 20px;
+    font-size: 20px;
+}

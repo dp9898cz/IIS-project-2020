@@ -66,6 +66,8 @@
 
         </div>
     </div>
+    <h1>Hotel {{hotel.name if hotel.name else ''}}{{'' if hotel.name else ''}}</h1>
+      <p class="hotel-popis"> {{hotel.description if hotel.description else ''}}{{' ' if hotel.description else ''}}</p>
 </div>
 
 {% endblock %}
