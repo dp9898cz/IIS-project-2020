@@ -554,7 +554,6 @@ html{
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background-image: url('static/css/img/economy-1.jpg');
 
 }
 
